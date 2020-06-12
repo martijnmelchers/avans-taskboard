@@ -1,0 +1,31 @@
+<mat-card fxFlex.lg="80vw" fxFlex.xl="80vw">
+    <mat-card-title>{{project?.name}}</mat-card-title>
+    <mat-card-subtitle>{{project?.description}}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="active_wrapper" *ngIf="!project?.archived">
+        <h2>Manage sprints</h2>
+
+         <p>List of sprints. & highlight active one.</p>
+        <button mat-button>Click here to manage this project's sprints.</button>
+        <hr>
+
+        <h2>Manage backlog</h2>
+          <button mat-button [routerLink]="['/projects', project?.id, 'backlog']">Click here to manage this project's backlog.</button>
+        <hr>
+
+        <h2>Manage project members</h2>
+        <mat-list>
+          <mat-list-item *ngFor="let usr of project?.members">{{usr.email}} | {{usr.uid === project.owner ? 'Owner' : 'Member'}}</mat-list-item>
+        </mat-list>
+        <button mat-stroked-button color="primary" (click)="openDialog()">Add/Remove project members</button>
+        <hr>
+        <h2>Danger zone</h2>
+        <button *ngIf="!project?.archived" (click)="archive(true)" mat-raised-button color="warn">Archive project</button>
+      </div>
+
+      <div *ngIf="project?.archived" class="archived_wrapper">
+        <p>This project is archived, unarchive it to make changes.</p>
+        <button (click)="archive(false)" mat-raised-button color="primary">Un-archive project</button>
+      </div>
+    </mat-card-content>
+</mat-card>

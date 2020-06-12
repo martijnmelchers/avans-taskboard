@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "scrumbord-fe6c0": {
+      "hosting": {
+        "scrumbord": [
+          "scrumbord-fe6c0"
+        ]
+      }
+    }
+  }
+}

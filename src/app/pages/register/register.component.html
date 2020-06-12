@@ -1,0 +1,43 @@
+
+<mat-card fxFlex.xl="33vw">
+  <mat-card-title>Register</mat-card-title>
+  <mat-card-subtitle>Register with your e-mail & password</mat-card-subtitle>
+  <mat-card-content>
+    <form [formGroup]="registerForm" (submit)="register(registerForm.value)">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email"  formControlName="email">
+
+        <mat-error *ngIf="email.errors?.email">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="email.errors?.required">
+          E-mail can't be empty.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password">
+
+        <mat-error *ngIf="email.errors?.minLength">
+          Password must be 3 characters.
+        </mat-error>
+        <mat-error *ngIf="email.errors?.required">
+          Password is required.
+        </mat-error>
+
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Confirm password</mat-label>
+        <input type="password" matInput name="confirmPassword" formControlName="confirmPassword">
+        <mat-error *ngIf="registerForm.errors?.notSame == true">
+          Passwords must be the same.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <button [disabled]="!registerForm.valid" type="submit" mat-raised-button mat-button color="primary" mat-button>Register</button>
+    </form>
+  </mat-card-content>
+</mat-card>

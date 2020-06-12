@@ -1,0 +1,27 @@
+
+<mat-card fxFlex.xl="33vw">
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-subtitle>Login with your e-mail & password</mat-card-subtitle>
+  <mat-card-content>
+    <form action="" [formGroup]="loginForm" (submit)="login(loginForm.value)">
+      <mat-form-field appearance="fill" class="full-width" >
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" name="email" formControlName="email">
+
+        <mat-error *ngIf="email.errors?.required">
+          Email is required.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="full-width" >
+        <mat-label>Password</mat-label>
+        <input type="password" matInput name="password" formControlName="password">
+        <mat-error *ngIf="password.errors?.required">
+          Password is required.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <button [disabled]="!loginForm.valid" mat-raised-button mat-button color="primary" mat-button>Login</button>
+    </form>
+  </mat-card-content>
+</mat-card>
