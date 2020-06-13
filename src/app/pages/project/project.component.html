@@ -7,7 +7,11 @@
   <mat-card-content>
     <div class="active_wrapper" *ngIf="!project?.archived">
       <h2>Manage sprints</h2>
-
+      <div *ngIf="project?.activeSprint">
+        <h3>Active sprint:</h3>
+        <button mat-raised-button color="primary" [routerLink]="['/projects', project?.id, 'sprints', project.activeSprint?.id]">{{(project.activeSprint | doc | async)?.name}}</button>
+        <hr>
+      </div>
       <table mat-table [dataSource]="sprints" style="width: 100%;">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name</th>
@@ -27,15 +31,32 @@
         </ng-container>
 
 
+
         <!-- Weight Column -->
-        <ng-container matColumnDef="open">
+        <ng-container matColumnDef="markActive">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
-            <button mat-button color="accent" [routerLink]="['/projects', project.id, 'sprints', element.id]">Open
+
+            <button (click)="markActiveSprint(element)" *ngIf="project.activeSprint != undefined && project?.activeSprint.id != element.id" mat-button color="primary" >Mark active
               sprint
             </button>
           </td>
         </ng-container>
+
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="open">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button color="accent" [routerLink]="['/projects', project?.id, 'sprints', element.id]">Open
+              sprint
+            </button>
+          </td>
+        </ng-container>
+
+
+
+
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -58,7 +79,7 @@
       <hr>
       <h2>Options</h2>
       <p>Edit your project</p>
-      <a  [routerLink]="['/edit-project', project.id]" mat-stroked-button>Edit project</a>
+      <a  [routerLink]="['/edit-project', project?.id]" mat-stroked-button>Edit project</a>
       <br>
       <br>
       <p>If you archive your project all data will be kept until deleted.</p>

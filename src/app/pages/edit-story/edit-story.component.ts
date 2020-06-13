@@ -29,8 +29,8 @@ export class EditStoryComponent implements OnInit {
       this._project.getProjectsCombined().subscribe((projects) => {
         this.project = projects.find((proj) => proj.id === params.project);
 
-        const userStorySub = this._userStories.getUserStories$(this.project).subscribe((userstories) => {
-          const story = userstories.find(x => x.id == params.backlog);
+        const userStorySub = this._userStories.getUserStories$(this.project.id).subscribe((userstories) => {
+          const story = userstories.find(x => x.id === params.backlog);
 
           this.addUserStoryForm.get('name').setValue(story.name);
           this.addUserStoryForm.get('description').setValue(story.description);

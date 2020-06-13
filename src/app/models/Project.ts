@@ -13,6 +13,7 @@ export class Project {
   archived: boolean;
   userstories?: Array<Userstory>;
   sprints?: Array<Sprint>;
+  activeSprint?: DocumentReference;
 }
 
 

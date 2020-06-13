@@ -14,14 +14,27 @@ export class UserstoryService {
   constructor(private _firestore: FirestoreService) {
   }
 
-  public getUserStories$(project: Project){
-    return this._firestore.col<Project>('projects').doc<Project>(project.id).collection<Userstory>('userstories').valueChanges({idField: 'id'});
+  public getUserStories$(projectId: string){
+    return this._firestore.col<Project>('projects').doc<Project>(projectId).collection<Userstory>('userstories').valueChanges({idField: 'id'});
   }
 
   public getUserStoriesSprint$(project: string, sprint: string){
     return this._firestore.colWithIds$<Userstory>(`projects/${project}/sprints/${sprint}/userstories`);
   }
 
+  public async copyToSprint(projectId: string, sprintId: string, userstoryId: string, status: Status){
+    const projectStory = this._firestore.col<Project>('projects').doc<Project>(projectId).collection<Userstory>('userstories').doc<Userstory>(userstoryId);
+    const story = await projectStory.get().toPromise();
+    const data = story.data();
+
+    const storyId = story.id;
+    delete data.id;
+
+    data.status = status;
+
+    console.log(data);
+    return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(storyId).set(data);
+  }
 
   public setStatus(sprintId: string, projectId: string, userstoryId: string, status: Status){
     return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(userstoryId).update({status: status});

@@ -17,7 +17,7 @@ import { SprintService } from '../../services/sprint/sprint.service';
 })
 export class ProjectComponent implements OnDestroy, OnInit {
   project: Project;
-  displayedColumns: string[] = ['name', 'startDate', 'endDate', 'open'];
+  displayedColumns: string[] = ['name', 'startDate', 'endDate', 'markActive', 'open' ];
   sprints: Array<Sprint>;
   private projectSubscription: Subscription;
   private sprintSubscription: Subscription;
@@ -89,5 +89,9 @@ export class ProjectComponent implements OnDestroy, OnInit {
 
     const time = date + ' ' + month + ' ' + year;
     return time;
+  }
+
+  async markActiveSprint(element: any) {
+     await this._project.markActiveSprint(this.project.id, element.id);
   }
 }

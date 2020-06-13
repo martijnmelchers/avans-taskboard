@@ -16,10 +16,13 @@ import {UserstoryService} from '../../services/userstory/userstory.service';
 export class SprintComponent implements OnDestroy {
   sprint: Sprint;
   sprintSub: Subscription;
+  userstorySub: Subscription;
+
   projectId: string;
-
+  sprintId: string;
   idMap: Map<string, Status> = new Map<string, Status>();
-
+  backlog: Userstory[] = [];
+  allStories: Userstory [] = [];
   todo: Userstory[] = [
   ];
 
@@ -32,21 +35,30 @@ export class SprintComponent implements OnDestroy {
 
   constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserstoryService) {
 
-    this.idMap.set('cdk-drop-list-1', Status.todo);
-    this.idMap.set('cdk-drop-list-2', Status.doing);
-    this.idMap.set('cdk-drop-list-3', Status.done);
+    this.idMap.set('todo', Status.todo);
+    this.idMap.set('doing', Status.doing);
+    this.idMap.set('done', Status.done);
+    this.idMap.set('backlog', Status.created);
     _route.params.subscribe((params) => {
       this.projectId = params.project;
-      _sprints.getSprints(params.project).subscribe((sprints) => {
-        this.sprintSub = this.sprint = sprints.find((spr) => spr.id === params.sprint);
-
+      this.sprintId = params.sprint;
+      this.sprintSub = _sprints.getSprints(params.project).subscribe((sprints) => {
+        this.sprint = sprints.find((spr) => spr.id === params.sprint);
       });
 
       this._userstories.getUserStoriesSprint$(params.project, params.sprint).subscribe((stories) => {
-        console.log(stories);
         this.doing = stories.filter((story) => story.status === Status.doing);
         this.todo = stories.filter((story) => story.status === Status.todo);
         this.done = stories.filter((story) => story.status === Status.done);
+        this.allStories = stories;
+
+
+        this._userstories.getUserStories$(params.project).subscribe((userstories) => {
+          this.backlog = userstories.filter((story) => {
+            const foundItem = this.allStories.find((item) => item.id === story.id);
+            return (foundItem === undefined);
+          });
+        });
       });
     });
   }
@@ -58,29 +70,27 @@ export class SprintComponent implements OnDestroy {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       // const dataZooi:any = event.container.data[0];
-
       const status = this.idMap.get(event.container.id);
-      const previousStatus = this.idMap.get(event.previousContainer.id);
-
-      let item = null;
-      switch(previousStatus){
-        case Status.created:
-          break;
-        case Status.doing:
-          item = this.doing[event.previousIndex];
-          break;
-        case Status.done:
-          item = this.done[event.previousIndex];
-          break;
-        case Status.todo:
-          item = this.todo[event.previousIndex];
-          break;
-      }
-       this._userstories.setStatus(this.sprint.id, this.projectId, item.id, status);
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+
+      const item:any = event.container.data[event.currentIndex];
+      //This is the backlog item.
+
+      console.log(event.container);
+      if(event.previousContainer.id === 'backlog'){
+        await this._userstories.copyToSprint(this.projectId, this.sprintId, item.id, status);
+      }
+      else{
+        await this._userstories.setStatus(this.sprintId, this.projectId, item.id, status);
+      }
+
     }
+  }
+
+  cardClick(element: any) {
+    console.log(element);
   }
 }

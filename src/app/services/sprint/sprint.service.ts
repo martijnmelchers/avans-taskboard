@@ -24,8 +24,4 @@ export class SprintService {
     };
     return this._firestore.col(`/projects/${project.id}/sprints`).add(data);
   }
-
-
-
-
 }
