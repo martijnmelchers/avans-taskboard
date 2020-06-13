@@ -24,7 +24,7 @@ export class BacklogComponent implements OnDestroy {
         const projectId = params.project;
         this.subscriptions.push(this._project.getProjectsCombined().subscribe((projects) => {
           this.project = projects.find((proj) => proj.id === projectId);
-          const userStorySub = this._userStories.getUserStories$(this.project).subscribe((userstories) => {
+          const userStorySub = this._userStories.getUserStories$(this.project.id).subscribe((userstories) => {
             this.userStories = userstories;
           });
           this.subscriptions.push(userStorySub);

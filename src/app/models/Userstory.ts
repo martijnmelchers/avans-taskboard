@@ -5,4 +5,5 @@ export class Userstory {
   description: string;
   status: string;
   owner?: DocumentReference;
+  id?: string;
 }
