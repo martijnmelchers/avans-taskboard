@@ -8,6 +8,7 @@ import { ProjectComponent } from './pages/project/project.component';
 import { BacklogComponent } from './pages/backlog/backlog.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
 import { EditProjectComponent } from './pages/edit-project/edit-project.component';
+import { EditStoryComponent } from './pages/edit-story/edit-story.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'projects/:project', component: ProjectComponent },
   { path: 'edit-project/:project', component: EditProjectComponent },
   { path: 'projects/:project/backlog', component: BacklogComponent },
+  { path: 'projects/:project/backlog/:backlog', component: EditStoryComponent },
   { path: 'projects/:project/sprints/:sprint', component: SprintComponent }
 ];
 

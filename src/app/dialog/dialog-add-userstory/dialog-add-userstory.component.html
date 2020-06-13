@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <p>Specify what users you want to add and click on add to project.</p>
 
-  <form action="" style="width: 100%" [formGroup]="addUserstoryForm" (submit)="createUserstory(addUserstoryForm.value)">
+  <form action="" style="width: 100%" [formGroup]="addUserStoryForm" (submit)="createUserstory(addUserStoryForm.value)">
     <mat-form-field class="full-width">
       <mat-label>Name</mat-label>
       <input matInput type="text" name="name" formControlName="name">
@@ -20,7 +20,7 @@
         <mat-option *ngFor="let user of project?.members" value="{{user.id}}" >{{user.email}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Create userstory.</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="addUserStoryForm.invalid">Create</button>
 
   </form>
   <hr>

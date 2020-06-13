@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectService} from '../../services/project/project.service';
 import {Project} from '../../models/Project';
 import {Subscription} from 'rxjs';
@@ -19,7 +19,7 @@ export class BacklogComponent implements OnDestroy {
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = ['name', 'description', 'owner', 'status'];
 
-  constructor(private _route: ActivatedRoute, private _project: ProjectService, private _userStories: UserstoryService, private _dialog: MatDialog) {
+  constructor(private _route: ActivatedRoute, private _project: ProjectService, private _userStories: UserstoryService, private _dialog: MatDialog, private _router: Router) {
       this.subscriptions.push(_route.params.subscribe((params) => {
         const projectId = params.project;
         this.subscriptions.push(this._project.getProjectsCombined().subscribe((projects) => {
@@ -31,6 +31,7 @@ export class BacklogComponent implements OnDestroy {
         }));
     }));
   }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
@@ -40,10 +41,14 @@ export class BacklogComponent implements OnDestroy {
   openDialog(): void {
     const dialogRef = this._dialog.open(DialogAddUserStoryComponent, {
       width: '33vw',
-      data: {project: this.project}
+      data: { project: this.project }
     });
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  openStory(id: any) {
+    this._router.navigate(['projects', this.project.id, 'backlog', id]);
   }
 }
