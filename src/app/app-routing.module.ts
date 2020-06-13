@@ -6,6 +6,7 @@ import {ProjectsComponent} from './pages/projects/projects.component';
 import {CreateProjectComponent} from './pages/create-project/create-project.component';
 import { ProjectComponent } from './pages/project/project.component';
 import {BacklogComponent} from './pages/backlog/backlog.component';
+import {SprintComponent} from './pages/sprint/sprint.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'create-project', component: CreateProjectComponent},
   {path: 'projects/:project', component: ProjectComponent},
   {path: 'projects/:project/backlog', component: BacklogComponent},
+  {path: 'projects/:project/sprint', component: SprintComponent},
 ];
 
 @NgModule({

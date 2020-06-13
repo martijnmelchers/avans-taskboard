@@ -33,6 +33,8 @@ import { SprintComponent } from './pages/sprint/sprint.component';
 import {UserstoryService} from './services/userstory/userstory.service';
 import {DialogAddUserStoryComponent} from './dialog/dialog-add-userstory/dialog-add-userstory.component';
 import {DocPipe} from './doc.pipe';
+import {CdkDrag} from '@angular/cdk/drag-drop';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -47,7 +49,7 @@ import {DocPipe} from './doc.pipe';
     BacklogComponent,
     SprintComponent,
     DialogAddUserStoryComponent,
-    DocPipe
+    DocPipe,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import {DocPipe} from './doc.pipe';
     MatTableModule,
     MatDividerModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    DragDropModule
   ],
   entryComponents:[
     DialogAddUserComponent
