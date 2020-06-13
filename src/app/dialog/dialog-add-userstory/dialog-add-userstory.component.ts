@@ -7,6 +7,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogAddUserComponent} from '../dialog-add-user/dialog-add-user.component';
 import {ScrumUser} from '../../models/ScrumUser';
+import {UserstoryService} from '../../services/userstory/userstory.service';
 
 export interface DialogData {
   project: Project;
@@ -21,19 +22,17 @@ export interface DialogData {
 export class DialogAddUserStoryComponent implements OnInit {
   project: Project;
   members: ScrumUser[];
-
-
   displayedColumns: string[] = ['email', 'role', 'remove'];
-  addUserForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+  public addUserstoryForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    owner: new FormControl('', [Validators.required]),
   });
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserStoryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _snackbar: MatSnackBar, private _dialog: MatDialog, private _project: ProjectService) {
-
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _snackbar: MatSnackBar, private _dialog: MatDialog, private _project: ProjectService, private _userstory: UserstoryService) {
     this._project.getProjectsCombined().subscribe((projects) => {
-      this.project = projects.find((proj) => proj.uid === data.project.id);
-
+      this.project = projects.find((proj) => proj.id === data.project.id);
 
     });
   }
@@ -45,5 +44,15 @@ export class DialogAddUserStoryComponent implements OnInit {
     this.dialogRef.close();
   }
 
+
+  async createUserstory(data: FormData){
+    try{
+      await this._userstory.createUserStory(this.project, data);
+      this._snackbar.open('Successfully created user story.');
+    }
+    catch (e) {
+      this._snackbar.open('Failed creating user story');
+    }
+  }
 
 }

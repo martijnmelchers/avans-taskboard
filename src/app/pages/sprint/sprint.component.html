@@ -1,1 +1,54 @@
-<p>sprint works!</p>
+<mat-card>
+  <mat-card-title>Sprint overview</mat-card-title>
+  <mat-card-content>
+
+    <div cdkDropListGroup>
+      <div class="example-container">
+        <h2>To do</h2>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="todo"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <mat-card class="example-box" *ngFor="let item of todo" cdkDrag>
+            <mat-card-title>{{item}}</mat-card-title>
+            <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="example-container">
+        <h2>Doing</h2>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="doing"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <mat-card class="example-box" *ngFor="let item of doing" cdkDrag>
+            <mat-card-title>{{item}}</mat-card-title>
+            <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
+          </mat-card>
+        </div>
+      </div>
+
+
+      <div class="example-container">
+        <h2>Done</h2>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="done"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <mat-card class="example-box" *ngFor="let item of done" cdkDrag>
+            <mat-card-title>{{item}}</mat-card-title>
+            <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
+          </mat-card>
+        </div>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>

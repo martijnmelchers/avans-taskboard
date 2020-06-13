@@ -1,30 +1,31 @@
 <h1 mat-dialog-title>Create new user-story</h1>
 <div mat-dialog-content>
   <p>Specify what users you want to add and click on add to project.</p>
-  <hr>
-</div>
-<div mat-dialog-actions>
-  <form action="" style="width: 100%">
+
+  <form action="" style="width: 100%" [formGroup]="addUserstoryForm" (submit)="createUserstory(addUserstoryForm.value)">
     <mat-form-field class="full-width">
       <mat-label>Name</mat-label>
-      <input matInput type="text">
+      <input matInput type="text" name="name" formControlName="name">
     </mat-form-field>
     <br>
     <mat-form-field  class="full-width">
       <mat-label>Description</mat-label>
-      <textarea matInput type="text"></textarea>
+      <textarea matInput type="text" name="description" formControlName="description"></textarea>
     </mat-form-field>
     <br>
     <mat-form-field  class="full-width">
-      <mat-label>Name</mat-label>
-      <mat-select >
-        <mat-option value="Sascha">Sascha</mat-option>
-        <mat-option value="Martijn">Martijn</mat-option>
-        <mat-option value="Varken (Martijn)">Varken (Martijn) </mat-option>
+      <mat-label>Assigned user</mat-label>
+      <mat-select name="owner" formControlName="owner">
+        <mat-option>Unassigned</mat-option>
+        <mat-option *ngFor="let user of project?.members" value="{{user.id}}" >{{user.email}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Create userstory.</button>
+
   </form>
   <hr>
+</div>
+<div mat-dialog-actions>
   <button mat-button (click)="close()">Close</button>
 </div>
 

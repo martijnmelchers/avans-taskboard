@@ -25,7 +25,12 @@ export class UserstoryService {
       status: Status.created,
     };
 
-    this._firestore.col<Project>('projects')
+    if(data.owner){
+      const userRef = this._firestore.doc(`/users/${data.owner}`).ref;
+      userStory.owner = userRef;
+    }
+
+    return this._firestore.col<Project>('projects')
       .doc<Project>(project.id).collection<Userstory>('userstories').add(userStory);
   }
 }
