@@ -39,6 +39,7 @@ import {DialogAddSprintComponent} from './dialog/dialog-add-sprint/dialog-add-sp
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
 import { DateAdapter, MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { EditProjectComponent } from './pages/edit-project/edit-project.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { DateAdapter, MatNativeDateModule, MatRippleModule } from '@angular/mate
     SprintComponent,
     DialogAddUserStoryComponent,
     DocPipe,
-    DialogAddSprintComponent
+    DialogAddSprintComponent,
+    EditProjectComponent
   ],
   imports: [
     BrowserModule,

@@ -56,7 +56,11 @@
       </mat-list>
       <button mat-stroked-button (click)="openUserDialog()">Add/Remove project members</button>
       <hr>
-      <h2>Danger zone</h2>
+      <h2>Options</h2>
+      <p>Edit your project</p>
+      <a  [routerLink]="['/edit-project', project.id]" mat-stroked-button>Edit project</a>
+      <br>
+      <br>
       <p>If you archive your project all data will be kept until deleted.</p>
       <button *ngIf="!project?.archived" (click)="archive(true)"  mat-stroked-button color="warn">Archive</button>
     </div>
