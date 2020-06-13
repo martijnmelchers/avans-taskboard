@@ -2,7 +2,7 @@
   <mat-card-title>Update your project</mat-card-title>
   <mat-card-subtitle>Made a typo or want to change something? You can change it below!</mat-card-subtitle>
   <mat-card-content>
-    <form [formGroup]="projectForm" (submit)="createProject(projectForm.value)">
+    <form [formGroup]="projectForm" (submit)="updateProject(projectForm.value)">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Project name</mat-label>
         <input matInput type="name"  formControlName="name">

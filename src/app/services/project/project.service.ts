@@ -76,16 +76,28 @@ export class ProjectService {
 
   public createProject(data: any): Promise<DocumentReference> {
       const userRef = this._firestore.doc(`users/${this._auth.getUser().uid}`).ref;
-      const project: Project = {
+
+    const project: Project = {
         name: data.name,
         description: data.description,
         owner: userRef,
         members: [this._auth.getUser().uid],
         archived: false,
+      // @ts-ignore
+        activeSprint: ''
       };
+
       return this._firestore.col<Project>('projects').add(project);
   }
 
+
+  public editProject(projectId: string, data: any): Promise<void> {
+    const project = {
+      name: data.name,
+      description: data.description
+    };
+    return this._firestore.col<Project>('projects').doc(projectId).update(project);
+  }
   public async addProjectUser(projectUid: string, data: any): Promise<void>{
     const user = await this._auth.getUserByEmail(data.email);
     return this._firestore.col('projects').doc(projectUid).update({members: FieldValue.arrayUnion(user.id)});
@@ -96,6 +108,11 @@ export class ProjectService {
   }
   public archiveProject(projectUid: string, archive: boolean = true): Promise<void> {
     return this._firestore.col<Project>('projects').doc(projectUid).update({archived: archive});
+  }
+
+  public markActiveSprint(projectId: string, sprintId: string){
+    const sprintRef = this._firestore.doc(`projects/${projectId}/sprints/${sprintId}`).ref;
+    return this._firestore.col<Project>('projects').doc(projectId).update({activeSprint: sprintRef});
   }
 }
 

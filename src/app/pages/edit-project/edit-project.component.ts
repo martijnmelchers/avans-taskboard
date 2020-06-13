@@ -48,11 +48,11 @@ export class EditProjectComponent implements OnInit {
   }
 
 
-  async createProject(data: FormData) {
+  async updateProject(data: FormData) {
     try {
-      const project = await this._project.createProject(data);
+      const editProj = await this._project.editProject(this.project.id, data);
       this._snack.open(`Project successfully created!`, 'OK', { duration: 2000 });
-      await this._router.navigate(['projects', project.id]);
+      await this._router.navigate(['projects', this.project.id]);
 
     } catch (e) {
       console.error(e);

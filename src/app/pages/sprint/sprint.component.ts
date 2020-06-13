@@ -35,10 +35,10 @@ export class SprintComponent implements OnDestroy {
 
   constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserstoryService) {
 
-    this.idMap.set('cdk-drop-list-1', Status.todo);
-    this.idMap.set('cdk-drop-list-2', Status.doing);
-    this.idMap.set('cdk-drop-list-3', Status.done);
-    this.idMap.set('cdk-drop-list-0', Status.created);
+    this.idMap.set('todo', Status.todo);
+    this.idMap.set('doing', Status.doing);
+    this.idMap.set('done', Status.done);
+    this.idMap.set('backlog', Status.created);
     _route.params.subscribe((params) => {
       this.projectId = params.project;
       this.sprintId = params.sprint;
@@ -78,7 +78,9 @@ export class SprintComponent implements OnDestroy {
 
       const item:any = event.container.data[event.currentIndex];
       //This is the backlog item.
-      if(event.previousContainer.id === 'cdk-drop-list-0'){
+
+      console.log(event.container);
+      if(event.previousContainer.id === 'backlog'){
         await this._userstories.copyToSprint(this.projectId, this.sprintId, item.id, status);
       }
       else{
@@ -88,7 +90,7 @@ export class SprintComponent implements OnDestroy {
     }
   }
 
-
   cardClick(element: any) {
+    console.log(element);
   }
 }
