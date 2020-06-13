@@ -35,6 +35,10 @@ import {DialogAddUserStoryComponent} from './dialog/dialog-add-userstory/dialog-
 import {DocPipe} from './doc.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import {DialogAddSprintComponent} from './dialog/dialog-add-sprint/dialog-add-sprint.component';
+import {CdkDrag} from '@angular/cdk/drag-drop';
+import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {DateAdapter, MatNativeDateModule} from '@angular/material/core';
 
 
 @NgModule({
@@ -49,33 +53,36 @@ import { MatIconModule } from '@angular/material/icon';
     BacklogComponent,
     SprintComponent,
     DialogAddUserStoryComponent,
-    DocPipe
+    DocPipe,
+    DialogAddSprintComponent
   ],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		AngularFireModule.initializeApp(environment.firebase),
-		MatInputModule,
-		MatFormFieldModule,
-		MatSelectModule,
-		MatCardModule,
-		MatToolbarModule,
-		MatButtonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		FlexLayoutModule,
-		MatTableModule,
-		MatDividerModule,
-		MatDialogModule,
-		MatListModule,
-		MatIconModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatTableModule,
+    MatDividerModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatListModule,
+    MatIconModule,
     DragDropModule
-	],
+  ],
   entryComponents:[
     DialogAddUserComponent
   ],
-  providers: [AuthService, MatSnackBar, ProjectService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}, UserstoryService, DocPipe],
+  providers: [AuthService, MatSnackBar, ProjectService, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}, UserstoryService, DocPipe, MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

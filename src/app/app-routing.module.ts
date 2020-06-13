@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'create-project', component: CreateProjectComponent},
   {path: 'projects/:project', component: ProjectComponent},
   {path: 'projects/:project/backlog', component: BacklogComponent},
-  {path: 'projects/:project/sprint', component: SprintComponent},
+  {path: 'projects/:project/sprints/:sprint', component: SprintComponent},
 ];
 
 @NgModule({

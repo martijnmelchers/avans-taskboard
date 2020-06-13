@@ -2,6 +2,7 @@ import {User} from 'firebase';
 import {ScrumUser} from './ScrumUser';
 import {Userstory} from './Userstory';
 import {DocumentReference} from '@angular/fire/firestore';
+import {Sprint} from './Sprint';
 
 export class Project {
   id?: string;
@@ -11,6 +12,7 @@ export class Project {
   members: Array<string>;
   archived: boolean;
   userstories?: Array<Userstory>;
+  sprints?: Array<Sprint>;
 }
 
 

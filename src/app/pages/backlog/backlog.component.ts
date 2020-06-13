@@ -39,7 +39,7 @@ export class BacklogComponent implements OnDestroy {
 
   openDialog(): void {
     const dialogRef = this._dialog.open(DialogAddUserStoryComponent, {
-      width: '33%',
+      width: '33vw',
       data: {project: this.project}
     });
 

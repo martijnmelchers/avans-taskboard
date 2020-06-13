@@ -2,6 +2,22 @@
   <mat-card-title>Sprint overview</mat-card-title>
   <mat-card-content>
 
+    <div class="example-container full-width">
+    <h2>Backlog</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="todo"
+      class="example-list full-width"
+      (cdkDropListDropped)="drop($event)">
+      <mat-card class="example-box full-width" *ngFor="let item of todo" cdkDrag>
+        <mat-card-title>{{item}}</mat-card-title>
+        <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
+      </mat-card>
+    </div>
+
+
+    </div>
     <div cdkDropListGroup>
       <div class="example-container">
         <h2>To do</h2>
