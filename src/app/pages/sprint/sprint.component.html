@@ -11,7 +11,7 @@
       class="example-list full-width"
       (cdkDropListDropped)="drop($event)">
       <mat-card class="example-box full-width" *ngFor="let item of todo" cdkDrag>
-        <mat-card-title>{{item}}</mat-card-title>
+        <mat-card-title>{{item.name}}</mat-card-title>
         <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
       </mat-card>
     </div>
@@ -28,7 +28,7 @@
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <mat-card class="example-box" *ngFor="let item of todo" cdkDrag>
-            <mat-card-title>{{item}}</mat-card-title>
+            <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
           </mat-card>
         </div>
@@ -43,7 +43,7 @@
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <mat-card class="example-box" *ngFor="let item of doing" cdkDrag>
-            <mat-card-title>{{item}}</mat-card-title>
+            <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
           </mat-card>
         </div>
@@ -59,7 +59,7 @@
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <mat-card class="example-box" *ngFor="let item of done" cdkDrag>
-            <mat-card-title>{{item}}</mat-card-title>
+            <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>sadasdhasydgasudygausydgusayd</mat-card-subtitle>
           </mat-card>
         </div>

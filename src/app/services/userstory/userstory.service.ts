@@ -18,8 +18,14 @@ export class UserstoryService {
     return this._firestore.col<Project>('projects').doc<Project>(project.id).collection<Userstory>('userstories').valueChanges({idField: 'id'});
   }
 
+  public getUserStoriesSprint$(project: string, sprint: string){
+    return this._firestore.colWithIds$<Userstory>(`projects/${project}/sprints/${sprint}/userstories`);
+  }
 
 
+  public setStatus(sprintId: string, projectId: string, userstoryId: string, status: Status){
+    return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(userstoryId).update({status: status});
+  }
 
   public createUserStory(project: Project, data: any){
     const userStory: Userstory = {
