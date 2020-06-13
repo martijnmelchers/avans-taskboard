@@ -5,7 +5,7 @@
     <form [formGroup]="projectForm" (submit)="createProject(projectForm.value)">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Project name</mat-label>
-        <input matInput type="name"  formControlName="name">
+        <input matInput type="name" formControlName="name">
 
         <mat-error align="start" *ngIf="name.errors?.required">
           Project name can't be empty.
@@ -14,19 +14,18 @@
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Description</mat-label>
-        <input matInput type="text"  name="description" formControlName="description">
+        <input matInput type="text" name="description" formControlName="description">
         <mat-hint>
           A description of the project
         </mat-hint>
         <mat-error align="start" *ngIf="description.errors?.required">
           Project name can't be empty.
         </mat-error>
-
-
-
       </mat-form-field>
       <br>
-      <button [disabled]="!projectForm.valid" type="submit" mat-raised-button mat-button color="primary" mat-button>Update project</button>
+      <button [disabled]="!projectForm.valid" type="submit" mat-raised-button mat-button color="primary" mat-button>
+        Update project
+      </button>
     </form>
   </mat-card-content>
 </mat-card>

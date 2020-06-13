@@ -1,1 +1,35 @@
-<p>edit-sprint works!</p>
+<mat-card>
+  <mat-card-title>Update your sprint</mat-card-title>
+  <mat-card-subtitle>Made a typo or want to change something? You can change it below!</mat-card-subtitle>
+  <mat-card-content>
+    <div>
+
+      <form action="" style="width: 100%" [formGroup]="addSprintForm" (submit)="createSprint(addSprintForm.value)">
+        <mat-form-field class="full-width">
+          <mat-label>Sprint name</mat-label>
+          <input matInput type="text" name="name" formControlName="name">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <mat-label>Choose an start date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Choose an end date</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <br>
+
+        <button [disabled]="!addSprintForm.valid" mat-raised-button color="primary" type="submit">
+          Update
+        </button>
+
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
+
