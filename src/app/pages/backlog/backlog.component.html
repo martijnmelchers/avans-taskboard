@@ -29,7 +29,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openStory(row.id)"></tr>
     </table>
     <hr>
     <button mat-raised-button color="primary" (click)="openDialog()">Create new user story</button>

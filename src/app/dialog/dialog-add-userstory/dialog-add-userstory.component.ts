@@ -22,8 +22,7 @@ export interface DialogData {
 export class DialogAddUserStoryComponent implements OnInit {
   project: Project;
   members: ScrumUser[];
-  displayedColumns: string[] = ['email', 'role', 'remove'];
-  public addUserstoryForm: FormGroup = new FormGroup({
+  public addUserStoryForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     owner: new FormControl('', [Validators.required]),

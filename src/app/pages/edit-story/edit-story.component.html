@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-title>Update user story</mat-card-title>
+  <mat-card-subtitle>Made a mistake? Fix it below</mat-card-subtitle>
+  <mat-card-content>
+    <div>
+
+      <form action="" style="width: 100%" [formGroup]="addUserStoryForm"
+            (submit)="createUserstory(addUserStoryForm.value)">
+        <mat-form-field class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" name="name" formControlName="name">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput type="text" name="description" formControlName="description"></textarea>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <mat-label>Assigned user</mat-label>
+          <mat-select name="owner" formControlName="owner">
+            <mat-option>Unassigned</mat-option>
+            <mat-option *ngFor="let user of project?.members" value="{{user.id}}">{{user.email}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="addUserStoryForm.invalid">Update</button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
