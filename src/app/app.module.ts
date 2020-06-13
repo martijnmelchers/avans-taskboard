@@ -33,6 +33,7 @@ import { SprintComponent } from './pages/sprint/sprint.component';
 import {UserstoryService} from './services/userstory/userstory.service';
 import {DialogAddUserStoryComponent} from './dialog/dialog-add-userstory/dialog-add-userstory.component';
 import {DocPipe} from './doc.pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -49,25 +50,26 @@ import {DocPipe} from './doc.pipe';
     DialogAddUserStoryComponent,
     DocPipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FlexLayoutModule,
-    MatTableModule,
-    MatDividerModule,
-    MatDialogModule,
-    MatListModule
-  ],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		MatInputModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		MatCardModule,
+		MatToolbarModule,
+		MatButtonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		FlexLayoutModule,
+		MatTableModule,
+		MatDividerModule,
+		MatDialogModule,
+		MatListModule,
+		MatIconModule
+	],
   entryComponents:[
     DialogAddUserComponent
   ],

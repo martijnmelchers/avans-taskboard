@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validat
 import {AuthService} from '../../services/auth/auth.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private _auth: AuthService, private fb: FormBuilder, private _snackBar: MatSnackBar) {
+  constructor(private _auth: AuthService, private fb: FormBuilder, private _snackBar: MatSnackBar, private _router: Router) {
     this.registerForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(3)]],
@@ -40,12 +41,17 @@ export class RegisterComponent implements OnInit {
   async register(data: FormData){
     try{
       await this._auth.doRegister(data);
-      this._snackBar.open("Register succes!", null, {
+      this._snackBar.open("Register success!", "Ok", {
         duration: 2000,
       });
+      await this._auth.authenticate(data);
+      await this._router.navigate(['projects']);
+
     }
     catch(e) {
-
+      this._snackBar.open("User already exists!", "Ok", {
+        duration: 2000,
+      });
     }
   }
 }

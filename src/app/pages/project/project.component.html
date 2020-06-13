@@ -13,11 +13,11 @@
           <button mat-button [routerLink]="['/projects', project?.id, 'backlog']">Click here to manage this project's backlog.</button>
         <hr>
 
-        <h2>Manage project members</h2>
+        <h3>Manage project members</h3>
         <mat-list>
           <mat-list-item *ngFor="let usr of project?.members">{{usr.email}} | {{usr.uid === project.owner ? 'Owner' : 'Member'}}</mat-list-item>
         </mat-list>
-        <button mat-stroked-button color="primary" (click)="openDialog()">Add/Remove project members</button>
+        <button mat-flat-button (click)="openDialog()">Add/Remove project members</button>
         <hr>
         <h2>Danger zone</h2>
         <button *ngIf="!project?.archived" (click)="archive(true)" mat-raised-button color="warn">Archive project</button>
