@@ -1,15 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/Project';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { ActivatedRoute } from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {DialogAddUserComponent} from '../../dialog/dialog-add-user/dialog-add-user.component';
-import {MatDialog} from '@angular/material/dialog';
-import {Subscription} from 'rxjs';
-import {DialogAddSprintComponent} from '../../dialog/dialog-add-sprint/dialog-add-sprint.component';
-import {Sprint} from '../../models/Sprint';
-import {SprintService} from '../../services/sprint/sprint.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogAddUserComponent } from '../../dialog/dialog-add-user/dialog-add-user.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import { DialogAddSprintComponent } from '../../dialog/dialog-add-sprint/dialog-add-sprint.component';
+import { Sprint } from '../../models/Sprint';
+import { SprintService } from '../../services/sprint/sprint.service';
 
 @Component({
   selector: 'app-project',
@@ -30,7 +29,7 @@ export class ProjectComponent implements OnDestroy, OnInit {
       });
 
 
-      this.sprintSubscription = this._sprints.getSprints( params.project).subscribe((sprints) => {
+      this.sprintSubscription = this._sprints.getSprints(params.project).subscribe((sprints) => {
         console.log(sprints);
         this.sprints = sprints;
       });
@@ -38,7 +37,7 @@ export class ProjectComponent implements OnDestroy, OnInit {
   }
 
 
-  ngOnInit(){
+  ngOnInit() {
 
   }
 
@@ -48,11 +47,10 @@ export class ProjectComponent implements OnDestroy, OnInit {
 
   async archive(archive: boolean = true) {
     const updatedText = archive ? 'archive' : 'de-archive';
-    try{
+    try {
       await this._project.archiveProject(this.project.id, archive);
       this._toast.open(`The projects has been ${updatedText}d`, 'Ok');
-    }
-    catch(e){
+    } catch (e) {
       console.error(e);
       this._toast.open(`There has been an error ${updatedText}ing the project`, 'Close');
     }
@@ -61,7 +59,7 @@ export class ProjectComponent implements OnDestroy, OnInit {
   openUserDialog(): void {
     const dialogRef = this._dialog.open(DialogAddUserComponent, {
       width: '33%',
-      data: {project: this.project}
+      data: { project: this.project }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -73,7 +71,7 @@ export class ProjectComponent implements OnDestroy, OnInit {
   openSprintDialog(): void {
     const dialogRef = this._dialog.open(DialogAddSprintComponent, {
       width: '33%',
-      data: {project: this.project}
+      data: { project: this.project }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -82,9 +80,9 @@ export class ProjectComponent implements OnDestroy, OnInit {
   }
 
 
-  timeConverter(unixTimestamp: number){
+  timeConverter(unixTimestamp: number) {
     const a = new Date(unixTimestamp * 1000);
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const year = a.getFullYear();
     const month = months[a.getMonth()];
     const date = a.getDate();

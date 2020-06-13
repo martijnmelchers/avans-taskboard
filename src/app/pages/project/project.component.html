@@ -1,60 +1,70 @@
+<a mat-icon-button color="accent" [routerLink]="['/projects']">
+  <mat-icon>arrow_back</mat-icon>
+</a>
 <mat-card fxFlex.lg="80vw" fxFlex.xl="80vw">
-    <mat-card-title>{{project?.name}}</mat-card-title>
-    <mat-card-subtitle>{{project?.description}}</mat-card-subtitle>
-    <mat-card-content>
-      <div class="active_wrapper" *ngIf="!project?.archived">
-        <h2>Manage sprints</h2>
+  <mat-card-title>{{project?.name}}</mat-card-title>
+  <mat-card-subtitle>{{project?.description}}</mat-card-subtitle>
+  <mat-card-content>
+    <div class="active_wrapper" *ngIf="!project?.archived">
+      <h2>Manage sprints</h2>
 
-        <table mat-table [dataSource]="sprints" class="mat-elevation-z8" style="width: 100%;">
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-          </ng-container>
+      <table mat-table [dataSource]="sprints" style="width: 100%;">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="startDate">
-            <th mat-header-cell *matHeaderCellDef> Start date </th>
-            <td mat-cell *matCellDef="let element"> {{timeConverter(element.startDate.seconds) }} </td>
-          </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef> Start date</th>
+          <td mat-cell *matCellDef="let element"> {{timeConverter(element.startDate.seconds) }} </td>
+        </ng-container>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="endDate">
-            <th mat-header-cell *matHeaderCellDef> End date </th>
-            <td mat-cell *matCellDef="let element"> {{ timeConverter(element.endDate.seconds) }} </td>
-          </ng-container>
-
-
-          <!-- Weight Column -->
-          <ng-container matColumnDef="open">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let element"><button mat-button color="accent" [routerLink]="['/projects', project.id, 'sprints', element.id]">Open sprint</button></td>
-          </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef> End date</th>
+          <td mat-cell *matCellDef="let element"> {{ timeConverter(element.endDate.seconds) }} </td>
+        </ng-container>
 
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <br>
-        <button mat-stroked-button  color="primary" (click)="openSprintDialog()">Click here to manage this project's sprints.</button>
-        <hr>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="open">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button color="accent" [routerLink]="['/projects', project.id, 'sprints', element.id]">Open
+              sprint
+            </button>
+          </td>
+        </ng-container>
 
-        <h2>Manage backlog</h2>
-          <button mat-button [routerLink]="['/projects', project?.id, 'backlog']">Click here to manage this project's backlog.</button>
-        <hr>
 
-        <h3>Manage project members</h3>
-        <mat-list>
-          <mat-list-item *ngFor="let usr of project?.members">{{usr.email}} | {{usr.uid === project.owner ? 'Owner' : 'Member'}}</mat-list-item>
-        </mat-list>
-        <button mat-flat-button (click)="openUserDialog()">Add/Remove project members</button>
-        <hr>
-        <h2>Danger zone</h2>
-        <button *ngIf="!project?.archived" (click)="archive(true)" mat-raised-button color="warn">Archive project</button>
-      </div>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <br>
+      <button mat-stroked-button (click)="openSprintDialog()">Manage sprints</button>
+      <hr>
 
-      <div *ngIf="project?.archived" class="archived_wrapper">
-        <p>This project is archived, unarchive it to make changes.</p>
-        <button (click)="archive(false)" mat-raised-button color="primary">Un-archive project</button>
-      </div>
-    </mat-card-content>
+      <h2>Manage backlog</h2>
+      <button mat-stroked-button [routerLink]="['/projects', project?.id, 'backlog']">Manage backlog</button>
+      <hr>
+
+      <h3>Manage project members</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let usr of project?.members">{{usr.email}}
+          | {{usr.uid === project.owner ? 'Owner' : 'Member'}}</mat-list-item>
+      </mat-list>
+      <button mat-stroked-button (click)="openUserDialog()">Add/Remove project members</button>
+      <hr>
+      <h2>Danger zone</h2>
+      <p>If you archive your project all data will be kept until deleted.</p>
+      <button *ngIf="!project?.archived" (click)="archive(true)"  mat-stroked-button color="warn">Archive</button>
+    </div>
+
+    <div *ngIf="project?.archived" class="archived_wrapper">
+      <p>This project is archived. You can permanently delete it or </p>
+      <button (click)="archive(false)" mat-stroked-button>Unarchive</button>&nbsp;
+      <button (click)="archive(false)" mat-stroked-button color="warn">Delete</button>
+    </div>
+  </mat-card-content>
 </mat-card>

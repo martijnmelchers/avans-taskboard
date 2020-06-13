@@ -38,7 +38,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {DialogAddSprintComponent} from './dialog/dialog-add-sprint/dialog-add-sprint.component';
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
-import {DateAdapter, MatNativeDateModule} from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -77,7 +77,8 @@ import {DateAdapter, MatNativeDateModule} from '@angular/material/core';
     MatNativeDateModule,
     MatListModule,
     MatIconModule,
-    DragDropModule
+    DragDropModule,
+    MatRippleModule
   ],
   entryComponents:[
     DialogAddUserComponent
