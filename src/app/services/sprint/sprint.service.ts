@@ -50,10 +50,10 @@ export class SprintService {
           grouped.push({
             date: d.toLocaleDateString(),
             open: userstories.length - userstories.filter(x => {
-              const date = x.updated.toDate();
-              return x.status === 'done' && (date.getDate() <= d.getDate() || date.getMonth() < d.getMonth())
+              const date = x.updated.toDate().setHours(0,0,0,0);
+              return x.status === 'done' && date <= d
             }).length,
-            optimal: Math.ceil(userstories.length - (storiesPerDay * day++))
+            optimal: Math.round(userstories.length - (storiesPerDay * day++))
           });
         }
 
