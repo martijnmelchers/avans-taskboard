@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Sprint} from '../../models/Sprint';
 import {SprintService} from '../../services/sprint/sprint.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Status} from '../../models/status';
 import {Userstory} from '../../models/Userstory';
@@ -33,12 +33,12 @@ export class SprintComponent implements OnDestroy {
   ];
 
 
-  constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserStoryService) {
-
+  constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserStoryService, private _router: Router) {
     this.idMap.set('todo', Status.todo);
     this.idMap.set('doing', Status.doing);
     this.idMap.set('done', Status.done);
     this.idMap.set('backlog', Status.created);
+
     _route.params.subscribe((params) => {
       this.projectId = params.project;
       this.sprintId = params.sprint;
@@ -54,10 +54,7 @@ export class SprintComponent implements OnDestroy {
 
 
         this._userstories.getUserStories$(params.project).subscribe((userstories) => {
-          this.backlog = userstories.filter((story) => {
-            const foundItem = this.allStories.find((item) => item.id === story.id);
-            return (foundItem === undefined);
-          });
+          this.backlog = userstories.filter((story) =>  !('inSprint' in story));
         });
       });
     });
@@ -77,7 +74,7 @@ export class SprintComponent implements OnDestroy {
         event.currentIndex);
 
       const item:any = event.container.data[event.currentIndex];
-      //This is the backlog item.
+
       if(event.previousContainer.id === 'backlog'){
         await this._userstories.copyToSprint(this.projectId, this.sprintId, item.id, status);
       }
@@ -88,7 +85,7 @@ export class SprintComponent implements OnDestroy {
     }
   }
 
-  cardClick(element: any) {
-    console.log(element);
+  async cardClick(element: any) {
+    await this._router.navigate(['/projects', this.projectId, 'backlog', element.id]);
   }
 }
