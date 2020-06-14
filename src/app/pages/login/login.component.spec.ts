@@ -36,4 +36,21 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should be valid with input', () => {
+    component.loginForm.controls.email.setValue('sascha2009@live.bl');
+    component.loginForm.controls.password.setValue('test123');
+    component.loginForm.updateValueAndValidity();
+    expect(component.loginForm.valid).toBeTruthy();
+  });
+
+
+  it('should be invalid with no input', () => {
+    component.loginForm.controls.email.setValue( '');
+    component.loginForm.controls.password.setValue( '');
+    component.loginForm.updateValueAndValidity();
+    expect(component.loginForm.valid).toBeFalsy();
+  });
+
 });

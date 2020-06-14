@@ -37,7 +37,7 @@
     <br>
   </div>
   <div mat-dialog-actions>
-    <button type="submit" mat-raised-button color="primary">Add user</button>
+    <button type="submit" [disabled]="addUserForm.valid" mat-raised-button color="primary">Add user</button>
     <button mat-button (click)="close()">Close</button>
   </div>
 </form>

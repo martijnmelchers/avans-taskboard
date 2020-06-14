@@ -22,4 +22,14 @@ describe('RegisterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be invalid with different passwords', () => {
+    component.registerForm.setValue({email: 'test@socialbrothers.nl', password: 'test123', confirmPassword: 'test1234'});
+    expect(component.registerForm.valid).toBeFalsy();
+  });
+
+  it('should be valid with same passwords', () => {
+    component.registerForm.setValue({email: 'test@socialbrothers.nl', password: 'test123', confirmPassword: 'test123'});
+    expect(component.registerForm.valid).toBeTruthy();
+  });
 });

@@ -52,6 +52,7 @@ export class UserStoryService {
     }
 
     return this._firestore.col<Project>('projects')
+
       .doc<Project>(project.id).collection<Userstory>('userstories').add(userStory);
   }
 

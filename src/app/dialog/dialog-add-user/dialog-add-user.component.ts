@@ -24,7 +24,7 @@ export class DialogAddUserComponent implements OnInit {
   project: Project;
   displayedColumns: string[] = ['email', 'role', 'remove'];
   addUserForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
   members: Observable<ScrumUser[]>;
 
@@ -34,18 +34,6 @@ export class DialogAddUserComponent implements OnInit {
     private _project: ProjectService, public auth: AuthService, private _snackbar: MatSnackBar, private docPipe: DocPipe) {
     this._project.getProjectsCombined().subscribe((projects) => {
       this.project = projects.find((proj) => proj.id === data.project.id);
-      // let observables = [];
-
-      // console.log("Project", this.project);
-      // this.project.members.forEach((member) => {
-      //   const observable = docPipe.transform(member);
-      //   observables.push(observable);
-      // });
-      // this.members = forkJoin<ScrumUser>(observables);
-      //
-      // this.members.subscribe((res) => {
-      //   console.log( res);
-      // })
     });
   }
 

@@ -1,7 +1,7 @@
 <a mat-icon-button color="accent" [routerLink]="['/projects']">
   <mat-icon>arrow_back</mat-icon>
 </a>
-<mat-card fxFlex.lg="80vw" fxFlex.xl="80vw">
+<mat-card fxFlex.lg="80vw" fxFlex.xl="80vw" *ngIf="project">
   <mat-card-title>{{project?.name}}</mat-card-title>
   <mat-card-subtitle>{{project?.description}}</mat-card-subtitle>
   <mat-card-content>
@@ -9,7 +9,8 @@
       <h2>Manage sprints</h2>
       <div *ngIf="project?.activeSprint">
         <h3>Active sprint:</h3>
-        <button mat-raised-button color="primary" [routerLink]="['/projects', project?.id, 'sprints', project.activeSprint?.id]">{{(project.activeSprint | doc | async)?.name}}</button>
+        <button mat-raised-button color="primary"
+                [routerLink]="['/projects', project.id, 'sprints', project.activeSprint.id]">{{(project.activeSprint | doc | async)?.name}}</button>
         <hr>
       </div>
       <table mat-table [dataSource]="sprints" style="width: 100%;">
@@ -31,13 +32,14 @@
         </ng-container>
 
 
-
         <!-- Weight Column -->
         <ng-container matColumnDef="markActive">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
 
-            <button (click)="markActiveSprint(element)" *ngIf="project.activeSprint != undefined && project?.activeSprint.id != element.id" mat-button color="primary" >Mark active
+            <button (click)="markActiveSprint(element)"
+                    *ngIf="project.activeSprint != undefined && project?.activeSprint.id != element.id" mat-button
+                    color="primary">Mark active
               sprint
             </button>
           </td>
@@ -55,10 +57,6 @@
         </ng-container>
 
 
-
-
-
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
@@ -67,7 +65,7 @@
       <hr>
 
       <h2>Manage backlog</h2>
-      <button mat-stroked-button [routerLink]="['/projects', project?.id, 'backlog']">Manage backlog</button>
+      <button mat-stroked-button [routerLink]="['/projects', project.id, 'backlog']">Manage backlog</button>
       <hr>
 
       <h3>Manage project members</h3>
@@ -79,11 +77,11 @@
       <hr>
       <h2>Options</h2>
       <p>Edit your project</p>
-      <a  [routerLink]="['/edit-project', project?.id]" mat-stroked-button>Edit project</a>
+      <a [routerLink]="['/edit-project', project?.id]" mat-stroked-button>Edit project</a>
       <br>
       <br>
       <p>If you archive your project all data will be kept until deleted.</p>
-      <button *ngIf="!project?.archived" (click)="archive(true)"  mat-stroked-button color="warn">Archive</button>
+      <button *ngIf="!project?.archived" (click)="archive(true)" mat-stroked-button color="warn">Archive</button>
     </div>
 
     <div *ngIf="project?.archived" class="archived_wrapper">
@@ -93,3 +91,5 @@
     </div>
   </mat-card-content>
 </mat-card>
+<mat-spinner *ngIf="!project"></mat-spinner>
+

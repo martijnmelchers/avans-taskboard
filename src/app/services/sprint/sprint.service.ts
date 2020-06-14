@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {FirestoreService} from '../firestore/firestore.service';
-import {Project} from '../../models/Project';
-import {Sprint} from '../../models/Sprint';
-import {Userstory} from '../../models/Userstory';
+import { Injectable } from '@angular/core';
+import { FirestoreService } from '../firestore/firestore.service';
+import { Project } from '../../models/Project';
+import { Sprint } from '../../models/Sprint';
+import { Userstory } from '../../models/Userstory';
 
 @Injectable({
   providedIn: 'root'
@@ -36,23 +36,26 @@ export class SprintService {
   }
 
 
-  public getBurnDown(projectId: string, sprintId: string) {
+  public getBurnDown(projectId: string, sprintId: string, startDate: Date, endDate: Date): Promise<Array<{ date: string, open: number, optimal: number }>> {
     return new Promise<any>((resolve, reject) => {
 
-      const sub = this._firestore.doc (`/projects/${projectId}/sprints/${sprintId}`).collection<Userstory>('userstories').valueChanges().subscribe((userstories) => {
+      const sub = this._firestore.doc(`/projects/${projectId}/sprints/${sprintId}`).collection<Userstory>('userstories').valueChanges().subscribe((userstories) => {
         // this gives an object with dates as keys
 
+        const grouped: Array<{ date: string, open: number, optimal: number }> = [];
 
-        const grouped = {};
-        let completedStories = 0;
-
-        userstories.filter(story => story.status === 'done').sort((a, b) => a.updated.seconds - b.updated.seconds).forEach((story) => {
-          completedStories++;
-          const date = story.updated.toDate();
-          const obKey = `${date.toDateString()}`;
-          grouped[obKey] = userstories.length - completedStories;
-        });
-
+        let day = 0;
+        let storiesPerDay = userstories.length / (Math.floor(endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+        for (const d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+          grouped.push({
+            date: d.toLocaleDateString(),
+            open: userstories.length - userstories.filter(x => {
+              const date = x.updated.toDate();
+              return x.status === 'done' && date.getDate() <= d.getDate() && date.getMonth() <= d.getMonth()
+            }).length,
+            optimal: Math.ceil(userstories.length - (storiesPerDay * day++))
+          });
+        }
 
         sub.unsubscribe();
         resolve(grouped);

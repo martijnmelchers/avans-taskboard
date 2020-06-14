@@ -42,6 +42,7 @@ import { EditStoryComponent } from './pages/edit-story/edit-story.component';
 import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
 import {ChartsModule} from 'ng2-charts';
 import { MyLineChartComponent } from './components/my-line-chart/my-line-chart.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -86,8 +87,9 @@ import { MyLineChartComponent } from './components/my-line-chart/my-line-chart.c
     MatIconModule,
     DragDropModule,
     MatRippleModule,
-    ChartsModule
-  ],
+    ChartsModule,
+    MatProgressSpinnerModule
+],
   entryComponents: [
     DialogAddUserComponent
   ],

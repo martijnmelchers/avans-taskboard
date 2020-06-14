@@ -16,7 +16,7 @@ export class CreateProjectComponent implements OnInit {
   constructor(private fb: FormBuilder, private _project: ProjectService, private _snack: MatSnackBar, private _router: Router) {
     this.projectForm = this.fb.group({
       name: [null, [Validators.required]],
-      description: [null, [Validators.required]]
+      description: [null, []]
     });
   }
 
