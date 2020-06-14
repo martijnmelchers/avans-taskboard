@@ -5,6 +5,7 @@ import {ProjectService} from '../../services/project/project.service';
 import {FakeProject} from '../../mocks/project.fake';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
+import {DocPipe} from '../../doc.pipe';
 
 
 
@@ -22,7 +23,7 @@ describe('EditProjectComponent', () => {
             project: 'sadasdasdasdasd',
           }),
         },
-      },]
+      },DocPipe]
     })
     .compileComponents();
   }));

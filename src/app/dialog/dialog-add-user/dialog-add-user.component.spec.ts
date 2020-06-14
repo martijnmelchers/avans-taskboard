@@ -8,10 +8,13 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {DocPipe} from '../../doc.pipe';
 import {FakeProject} from '../../mocks/project.fake';
+import {AuthService} from '../../services/auth/auth.service';
 
-
-
-
+class AuthFake {
+  getUser(){
+    return {uuid: 'varken'};
+  }
+}
 describe('DialogAddUserComponent', () => {
   let component: DialogAddUserComponent;
   let fixture: ComponentFixture<DialogAddUserComponent>;
@@ -19,11 +22,12 @@ describe('DialogAddUserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DialogAddUserComponent ],
-      providers: [ {provide: ProjectService, useClass: FakeProject}, {provide: MatDialogRef, useValue: {}}, {provide: MAT_DIALOG_DATA, useValue: {}}, DocPipe, {provide: 'DialogData', useValue: {project: {name: 'Test project', description: 'Test description', owner: null, id: 'sadasdasdasdasd', archived: false, members: ['']}}}]
+      providers: [ {provide: ProjectService, useClass: FakeProject}, {provide: MatDialogRef, useValue: {}}, DocPipe, {provide: MAT_DIALOG_DATA, useValue: {project: {name: 'Test project', description: 'Test description', owner: null, id: 'sadasdasdasdasd', archived: false, members: ['']}}}, {provide: AuthService, useClass: AuthFake}]
     })
     .compileComponents();
 
     TestBed.inject(DocPipe);
+    TestBed.inject(AuthService);
     TestBed.inject(MatDialogModule);
   }));
 
@@ -31,14 +35,16 @@ describe('DialogAddUserComponent', () => {
     fixture = TestBed.createComponent(DialogAddUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    component.addUserForm.reset();
-    component.addUserForm.updateValueAndValidity();
   });
 
   it('should valid with input', () => {
     component.addUserForm.controls.email.setValue('sascha@socialbrothers.nl');
     component.addUserForm.updateValueAndValidity();
     expect(component.addUserForm.valid).toBeTruthy();
+  });
+
+  it('should valid with no input', () => {
+    component.addUserForm.updateValueAndValidity();
+    expect(component.addUserForm.valid).toBeFalsy();
   });
 });
