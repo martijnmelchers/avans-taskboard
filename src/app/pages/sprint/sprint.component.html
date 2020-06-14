@@ -4,50 +4,60 @@
 <mat-card>
   <mat-card-title>{{sprint?.name}} overview</mat-card-title>
   <mat-card-content>
+    <button mat-stroked-button (click)="showGraph = !showGraph">
+      Toggle burndown
+    </button>
+    <div *ngIf="sprint && showGraph">
+      <app-burndown [sprint]="sprint" [projectId]="projectId" [reload]="reloadEmitter"></app-burndown>
+    </div>
+
     <div cdkDropListGroup>
 
-    <h2>Backlog</h2>
+      <h2>Backlog</h2>
 
-    <div id="backlog"
-      cdkDropList
-      [cdkDropListData]="backlog"
-      class="example-list full-width">
-      <mat-card class="example-box full-width" *ngFor="let item of backlog" cdkDrag  (click)="cardClick(item)">
-        <mat-card-title>{{item.name}}</mat-card-title>
-        <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-        <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
-      </mat-card>
-    </div>
-    <br>
+      <div id="backlog"
+           cdkDropList
+           [cdkDropListData]="backlog"
+           class="example-list full-width">
+        <mat-card class="example-box full-width" *ngFor="let item of backlog" cdkDrag (click)="cardClick(item)">
+          <mat-card-title>{{item.name}}</mat-card-title>
+          <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+          <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <br>
 
       <div class="example-container">
         <h2>To do</h2>
 
         <div id="todo"
-          cdkDropList
-          [cdkDropListData]="todo"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)">
-          <mat-card class="example-box" *ngFor="let item of todo" cdkDrag  (click)="cardClick(item)">
+             cdkDropList
+             [cdkDropListData]="todo"
+             class="example-list"
+             (cdkDropListDropped)="drop($event)">
+          <mat-card class="example-box" *ngFor="let item of todo" cdkDrag (click)="cardClick(item)">
             <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
+            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
+            </mat-card-content>
           </mat-card>
         </div>
       </div>
 
       <div class="example-container">
-        <h2>Doing</h2>
+        <h2>In progress</h2>
 
         <div id="doing"
-          cdkDropList
-          [cdkDropListData]="doing"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)">
+             cdkDropList
+             [cdkDropListData]="doing"
+             class="example-list"
+             (cdkDropListDropped)="drop($event)">
           <mat-card class="example-box" *ngFor="let item of doing" cdkDrag (click)="cardClick(item)">
             <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
+            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
+            </mat-card-content>
           </mat-card>
         </div>
       </div>
@@ -57,26 +67,25 @@
         <h2>Done</h2>
 
         <div id="done"
-          cdkDropList
-          [cdkDropListData]="done"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)">
-          <mat-card class="example-box" *ngFor="let item of done" cdkDrag  (click)="cardClick(item)">
+             cdkDropList
+             [cdkDropListData]="done"
+             class="example-list"
+             (cdkDropListDropped)="drop($event)">
+          <mat-card class="example-box" *ngFor="let item of done" cdkDrag (click)="cardClick(item)">
             <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
+            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
+            </mat-card-content>
           </mat-card>
         </div>
       </div>
 
     </div>
-
-    <div *ngIf="sprint">
-      <app-burndown [sprint]="sprint" [projectId]="projectId"></app-burndown>
-    </div>
   </mat-card-content>
 
   <mat-card-actions align="right">
-    <button mat-raised-button color="accent" [routerLink]="['/projects', projectId, 'sprints', sprintId,'edit']">Edit sprint</button>
+    <button mat-raised-button color="accent" [routerLink]="['/projects', projectId, 'sprints', sprintId,'edit']">Edit
+      sprint
+    </button>
   </mat-card-actions>
 </mat-card>

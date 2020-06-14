@@ -1,12 +1,12 @@
-import {Component, OnDestroy} from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {Sprint} from '../../models/Sprint';
-import {SprintService} from '../../services/sprint/sprint.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {Status} from '../../models/status';
-import {Userstory} from '../../models/Userstory';
-import {UserStoryService} from '../../services/userstory/user-story.service';
+import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Sprint } from '../../models/Sprint';
+import { SprintService } from '../../services/sprint/sprint.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Status } from '../../models/status';
+import { Userstory } from '../../models/Userstory';
+import { UserStoryService } from '../../services/userstory/user-story.service';
 
 @Component({
   selector: 'app-sprint',
@@ -18,19 +18,19 @@ export class SprintComponent implements OnDestroy {
   sprintSub: Subscription;
   userstorySub: Subscription;
 
+  public showGraph: boolean;
+
   projectId: string;
   sprintId: string;
   idMap: Map<string, Status> = new Map<string, Status>();
   backlog: Userstory[] = [];
   allStories: Userstory [] = [];
-  todo: Userstory[] = [
-  ];
+  todo: Userstory[] = [];
 
-  done: Userstory[] = [
-  ];
+  done: Userstory[] = [];
 
-  doing: Userstory[] = [
-  ];
+  doing: Userstory[] = [];
+  reloadEmitter: EventEmitter<void> = new EventEmitter<void>();
 
 
   constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserStoryService, private _router: Router) {
@@ -58,17 +58,20 @@ export class SprintComponent implements OnDestroy {
         this._userstories.getUserStories$(params.project).subscribe((userstories) => {
 
           userstories = userstories.filter((story) => story.archived === false);
-          this.backlog = userstories.filter((story) =>  !('inSprint' in story));
+          this.backlog = userstories.filter((story) => !('inSprint' in story));
         });
       });
     });
   }
+
   ngOnDestroy(): void {
     this.sprintSub.unsubscribe();
   }
+
   async drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      this.reloadEmitter.emit();
     } else {
       // const dataZooi:any = event.container.data[0];
       const status = this.idMap.get(event.container.id);
@@ -77,15 +80,15 @@ export class SprintComponent implements OnDestroy {
         event.previousIndex,
         event.currentIndex);
 
-      const item:any = event.container.data[event.currentIndex];
+      const item: any = event.container.data[event.currentIndex];
 
-      if(event.previousContainer.id === 'backlog'){
+      if (event.previousContainer.id === 'backlog') {
         await this._userstories.copyToSprint(this.projectId, this.sprintId, item.id, status);
-      }
-      else{
+      } else {
         await this._userstories.setStatus(this.sprintId, this.projectId, item.id, status);
       }
 
+      this.reloadEmitter.emit();
     }
   }
 
