@@ -40,6 +40,7 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { EditProjectComponent } from './pages/edit-project/edit-project.component';
 import { EditStoryComponent } from './pages/edit-story/edit-story.component';
 import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
     MatListModule,
     MatIconModule,
     DragDropModule,
-    MatRippleModule
+    MatRippleModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     DialogAddUserComponent
