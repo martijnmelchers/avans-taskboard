@@ -29,7 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { BacklogComponent } from './pages/backlog/backlog.component';
 import { SprintComponent } from './pages/sprint/sprint.component';
-import { UserstoryService } from './services/userstory/userstory.service';
+import { UserStoryService } from './services/userstory/user-story.service';
 import { DialogAddUserStoryComponent } from './dialog/dialog-add-userstory/dialog-add-userstory.component';
 import { DocPipe } from './doc.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -91,7 +91,7 @@ import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
     AuthService,
     MatSnackBar,
     ProjectService,
-    UserstoryService,
+    UserStoryService,
     DocPipe,
     MatDatepickerModule
   ],

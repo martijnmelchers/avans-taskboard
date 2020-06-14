@@ -4,7 +4,7 @@ import {ProjectService} from '../../services/project/project.service';
 import {Project} from '../../models/Project';
 import {Subscription} from 'rxjs';
 import {Userstory} from '../../models/Userstory';
-import {UserstoryService} from '../../services/userstory/userstory.service';
+import {UserStoryService} from '../../services/userstory/user-story.service';
 import {DialogAddUserStoryComponent} from '../../dialog/dialog-add-userstory/dialog-add-userstory.component';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -19,7 +19,7 @@ export class BacklogComponent implements OnDestroy {
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = ['name', 'description','storyPoints', 'owner', 'status'];
 
-  constructor(private _route: ActivatedRoute, private _project: ProjectService, private _userStories: UserstoryService, private _dialog: MatDialog, private _router: Router) {
+  constructor(private _route: ActivatedRoute, private _project: ProjectService, private _userStories: UserStoryService, private _dialog: MatDialog, private _router: Router) {
       this.subscriptions.push(_route.params.subscribe((params) => {
         const projectId = params.project;
         this.subscriptions.push(this._project.getProjectsCombined().subscribe((projects) => {

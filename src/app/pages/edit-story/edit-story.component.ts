@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProjectService } from '../../services/project/project.service';
-import { UserstoryService } from '../../services/userstory/userstory.service';
+import { UserStoryService } from '../../services/userstory/user-story.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -24,7 +24,7 @@ export class EditStoryComponent implements OnInit {
   });
   private projectSubscription: Subscription;
 
-  constructor(private _snackbar: MatSnackBar, private _dialog: MatDialog, private _project: ProjectService, private _userStory: UserstoryService, private _route: ActivatedRoute, private _userStories: UserstoryService) {
+  constructor(private _snackbar: MatSnackBar, private _dialog: MatDialog, private _project: ProjectService, private _userStory: UserStoryService, private _route: ActivatedRoute, private _userStories: UserStoryService) {
     this.projectSubscription = this._route.params.subscribe((params) => {
       this._project.getProjectsCombined().subscribe((projects) => {
         this.project = projects.find((proj) => proj.id === params.project);

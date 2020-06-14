@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ScrumUser } from '../../models/ScrumUser';
 import * as firebase from 'firebase/app';
-import { UserstoryService } from '../userstory/userstory.service';
+import { UserStoryService } from '../userstory/user-story.service';
 import { FirestoreService } from '../firestore/firestore.service';
 import FieldValue = firebase.firestore.FieldValue;
 
@@ -20,7 +20,7 @@ import FieldValue = firebase.firestore.FieldValue;
 export class ProjectService {
   projects$: Observable<Project[]>;
 
-  constructor(private _firestore: FirestoreService, private _auth: AuthService, private _fireAuth: AngularFireAuth, private _userstories: UserstoryService, private _afs: FirestoreService) {
+  constructor(private _firestore: FirestoreService, private _auth: AuthService, private _fireAuth: AngularFireAuth, private _userstories: UserStoryService, private _afs: FirestoreService) {
     this.projects$ = _afs.colWithIds$<Project>('projects',
       ref => ref.where('members', 'array-contains', this._auth.getUser().uid));
   }

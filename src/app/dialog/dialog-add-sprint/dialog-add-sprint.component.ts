@@ -7,7 +7,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogAddUserComponent} from '../dialog-add-user/dialog-add-user.component';
 import {ScrumUser} from '../../models/ScrumUser';
-import {UserstoryService} from '../../services/userstory/userstory.service';
+import {UserStoryService} from '../../services/userstory/user-story.service';
 import {SprintService} from '../../services/sprint/sprint.service';
 
 export interface DialogData {

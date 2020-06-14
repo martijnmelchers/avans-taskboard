@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Status} from '../../models/status';
 import {Userstory} from '../../models/Userstory';
-import {UserstoryService} from '../../services/userstory/userstory.service';
+import {UserStoryService} from '../../services/userstory/user-story.service';
 
 @Component({
   selector: 'app-sprint',
@@ -33,7 +33,7 @@ export class SprintComponent implements OnDestroy {
   ];
 
 
-  constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserstoryService) {
+  constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserStoryService) {
 
     this.idMap.set('todo', Status.todo);
     this.idMap.set('doing', Status.doing);
