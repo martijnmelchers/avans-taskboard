@@ -8,6 +8,7 @@ import { ProjectService } from '../../services/project/project.service';
 import { UserStoryService } from '../../services/userstory/user-story.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import {Userstory} from '../../models/Userstory';
 
 @Component({
   selector: 'app-edit-story',
@@ -17,9 +18,11 @@ import { Subscription } from 'rxjs';
 export class EditStoryComponent implements OnInit {
   project: Project;
   members: ScrumUser[];
+  story: Userstory;
   public editUserStoryForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
+    storyPoints: new FormControl('', [Validators.required, Validators.min(1)]),
     owner: new FormControl('', [Validators.required])
   });
   private projectSubscription: Subscription;
@@ -31,10 +34,11 @@ export class EditStoryComponent implements OnInit {
 
         const userStorySub = this._userStories.getUserStories$(this.project.id).subscribe((userstories) => {
           const story = userstories.find(x => x.id === params.backlog);
-
+          this.story = story;
           this.editUserStoryForm.get('name').setValue(story.name);
           this.editUserStoryForm.get('description').setValue(story.description);
-          this.editUserStoryForm.get('owner').setValue(story.owner);
+          this.editUserStoryForm.get('storyPoints').setValue(story.storyPoints);
+          this.editUserStoryForm.get('owner').setValue(story.owner.id);
         });
       });
     });
@@ -46,10 +50,21 @@ export class EditStoryComponent implements OnInit {
 
   async editUserStory(data: FormData) {
     try {
-      await this._userStory.createUserStory(this.project, data);
-      this._snackbar.open('Successfully created user story.');
+      await this._userStory.editUserStory(this.project.id, this.story, data);
+      this._snackbar.open('Successfully updated user story.', 'Close');
     } catch (e) {
-      this._snackbar.open('Failed creating user story');
+      this._snackbar.open('Failed updating user story','Close');
+    }
+  }
+
+  async archiveStory(archive: boolean = true) {
+    try{
+      await this._userStories.archiveUserStory(this.project.id, this.story, archive);
+      this._snackbar.open('Successfully archived user story.', 'Close');
+    }
+    catch (e) {
+      console.error(e);
+      this._snackbar.open('Failed archiving user story.', 'Close');
     }
   }
 }

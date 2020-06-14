@@ -23,17 +23,18 @@ export class UserStoryService {
     const projectStory = this._firestore.col<Project>('projects').doc<Project>(projectId).collection<Userstory>('userstories').doc<Userstory>(userstoryId);
     const story = await projectStory.get().toPromise();
     const data = story.data();
-
+    data.updated = new Date();
     const storyId = story.id;
     delete data.id;
-
     data.status = status;
 
-    return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(storyId).set(data);
+    await this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(storyId).set(data);
+    const sprintStoryRef = this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(storyId).ref;
+    return this._firestore.col(`projects/${projectId}/userstories`).doc(storyId).update({inSprint: sprintStoryRef});
   }
 
   public setStatus(sprintId: string, projectId: string, userstoryId: string, status: Status) {
-    return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(userstoryId).update({ status: status });
+    return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(userstoryId).update({ status: status, updated: new Date() });
   }
 
   public createUserStory(project: Project, data: any) {
@@ -41,7 +42,9 @@ export class UserStoryService {
       name: data.name,
       description: data.description,
       status: Status.created,
-      storyPoints: data.storyPoints
+      storyPoints: data.storyPoints,
+      archived: false,
+      updated: new Date()
     };
 
     if (data.owner) {
@@ -53,7 +56,34 @@ export class UserStoryService {
       .doc<Project>(project.id).collection<Userstory>('userstories').add(userStory);
   }
 
-  public editUserStory(project: string, data: any) {
+  public async editUserStory(projectId: string, userStory: Userstory, data:any){
+    const updateDate: any = {
+      name: data.name,
+      description: data.description,
+      storyPoints: data.storyPoints
+    };
+    if(data.owner){
+      const userRef = this._firestore.doc(`/users/${data.owner}`).ref;
+      updateDate.owner = userRef;
+    }
+    if (userStory.inSprint){
+      await userStory.inSprint.update(updateDate);
+    }
+    // Update the project level userstory
+    return this._firestore.col<Project>('projects')
+      .doc<Project>(projectId).collection<Userstory>('userstories').doc(userStory.id).update(updateDate);
+  }
 
+
+  public async archiveUserStory(projectId: string, userStory: Userstory, archive: boolean = true){
+    const updateDate: any = {
+      archived: archive
+    };
+    if (userStory.inSprint){
+      await userStory.inSprint.update(updateDate);
+    }
+    // Update the project level userstory
+    return this._firestore.col<Project>('projects')
+      .doc<Project>(projectId).collection<Userstory>('userstories').doc(userStory.id).update(updateDate);
   }
 }

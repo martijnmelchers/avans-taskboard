@@ -1,5 +1,8 @@
+<a mat-icon-button color="accent" [routerLink]="['/projects', this.projectId]">
+  <mat-icon>arrow_back</mat-icon>
+</a>
 <mat-card>
-  <mat-card-title>Sprint overview</mat-card-title>
+  <mat-card-title>{{sprint?.name}} overview</mat-card-title>
   <mat-card-content>
     <div cdkDropListGroup>
 
@@ -12,6 +15,7 @@
       <mat-card class="example-box full-width" *ngFor="let item of backlog" cdkDrag  (click)="cardClick(item)">
         <mat-card-title>{{item.name}}</mat-card-title>
         <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+        <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
       </mat-card>
     </div>
     <br>
@@ -27,6 +31,7 @@
           <mat-card class="example-box" *ngFor="let item of todo" cdkDrag  (click)="cardClick(item)">
             <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
           </mat-card>
         </div>
       </div>
@@ -42,6 +47,7 @@
           <mat-card class="example-box" *ngFor="let item of doing" cdkDrag (click)="cardClick(item)">
             <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
           </mat-card>
         </div>
       </div>
@@ -58,10 +64,19 @@
           <mat-card class="example-box" *ngFor="let item of done" cdkDrag  (click)="cardClick(item)">
             <mat-card-title>{{item.name}}</mat-card-title>
             <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p></mat-card-content>
           </mat-card>
         </div>
       </div>
 
     </div>
+
+    <div *ngIf="sprint">
+      <app-burndown [sprint]="sprint" [projectId]="projectId"></app-burndown>
+    </div>
   </mat-card-content>
+
+  <mat-card-actions align="right">
+    <button mat-raised-button color="accent" [routerLink]="['/projects', projectId, 'sprints', sprintId,'edit']">Edit sprint</button>
+  </mat-card-actions>
 </mat-card>

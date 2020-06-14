@@ -7,4 +7,7 @@ export class Userstory {
   status: string;
   owner?: DocumentReference;
   storyPoints: number;
+  inSprint?: DocumentReference;
+  archived?: boolean;
+  updated?: any;
 }
