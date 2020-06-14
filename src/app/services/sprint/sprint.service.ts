@@ -51,7 +51,7 @@ export class SprintService {
             date: d.toLocaleDateString(),
             open: userstories.length - userstories.filter(x => {
               const date = x.updated.toDate();
-              return x.status === 'done' && date.getDate() <= d.getDate() && date.getMonth() <= d.getMonth()
+              return x.status === 'done' && (date.getDate() <= d.getDate() || date.getMonth() < d.getMonth())
             }).length,
             optimal: Math.ceil(userstories.length - (storiesPerDay * day++))
           });

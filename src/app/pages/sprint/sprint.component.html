@@ -19,12 +19,8 @@
            cdkDropList
            [cdkDropListData]="backlog"
            class="example-list full-width">
-        <mat-card class="example-box full-width" *ngFor="let item of backlog" cdkDrag (click)="cardClick(item)">
-          <mat-card-title>{{item.name}}</mat-card-title>
-          <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-          <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
-          </mat-card-content>
-        </mat-card>
+        <app-sprint-card *ngFor="let item of backlog" [item]="item" (click)="cardClick(item)"></app-sprint-card>
+
       </div>
       <br>
 
@@ -36,12 +32,7 @@
              [cdkDropListData]="todo"
              class="example-list"
              (cdkDropListDropped)="drop($event)">
-          <mat-card class="example-box" *ngFor="let item of todo" cdkDrag (click)="cardClick(item)">
-            <mat-card-title>{{item.name}}</mat-card-title>
-            <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
-            </mat-card-content>
-          </mat-card>
+          <app-sprint-card *ngFor="let item of todo" [item]="item" (click)="cardClick(item)"></app-sprint-card>
         </div>
       </div>
 
@@ -53,12 +44,8 @@
              [cdkDropListData]="doing"
              class="example-list"
              (cdkDropListDropped)="drop($event)">
-          <mat-card class="example-box" *ngFor="let item of doing" cdkDrag (click)="cardClick(item)">
-            <mat-card-title>{{item.name}}</mat-card-title>
-            <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
-            </mat-card-content>
-          </mat-card>
+          <app-sprint-card *ngFor="let item of doing" [item]="item" (click)="cardClick(item)"></app-sprint-card>
+
         </div>
       </div>
 
@@ -71,12 +58,7 @@
              [cdkDropListData]="done"
              class="example-list"
              (cdkDropListDropped)="drop($event)">
-          <mat-card class="example-box" *ngFor="let item of done" cdkDrag (click)="cardClick(item)">
-            <mat-card-title>{{item.name}}</mat-card-title>
-            <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
-            <mat-card-content><p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
-            </mat-card-content>
-          </mat-card>
+          <app-sprint-card *ngFor="let item of done" [item]="item" (click)="cardClick(item)"></app-sprint-card>
         </div>
       </div>
 

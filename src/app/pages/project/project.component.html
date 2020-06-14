@@ -85,9 +85,8 @@
     </div>
 
     <div *ngIf="project?.archived" class="archived_wrapper">
-      <p>This project is archived. You can permanently delete it or </p>
+      <p>This project is archived. </p>
       <button (click)="archive(false)" mat-stroked-button>Unarchive</button>&nbsp;
-      <button (click)="archive(false)" mat-stroked-button color="warn">Delete</button>
     </div>
   </mat-card-content>
 </mat-card>
