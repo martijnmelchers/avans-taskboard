@@ -14,26 +14,20 @@ import { UserStoryService } from '../../services/userstory/user-story.service';
   styleUrls: ['./sprint.component.scss']
 })
 export class SprintComponent implements OnDestroy {
-  sprint: Sprint;
-  sprintSub: Subscription;
-  userstorySub: Subscription;
-
+  public sprint: Sprint;
   public showGraph: boolean;
+  public projectId: string;
+  public sprintId: string;
+  public idMap: Map<string, Status> = new Map<string, Status>();
+  public backlog: Userstory[] = [];
+  public allStories: Userstory [] = [];
+  public todo: Userstory[] = [];
+  public done: Userstory[] = [];
+  public doing: Userstory[] = [];
+  public reloadEmitter: EventEmitter<void> = new EventEmitter<void>();
+  private sprintSub: Subscription;
 
-  projectId: string;
-  sprintId: string;
-  idMap: Map<string, Status> = new Map<string, Status>();
-  backlog: Userstory[] = [];
-  allStories: Userstory [] = [];
-  todo: Userstory[] = [];
-
-  done: Userstory[] = [];
-
-  doing: Userstory[] = [];
-  reloadEmitter: EventEmitter<void> = new EventEmitter<void>();
-
-
-  constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userstories: UserStoryService, private _router: Router) {
+  constructor(private _route: ActivatedRoute, private _sprints: SprintService, private _userStory: UserStoryService, private _router: Router) {
     this.idMap.set('todo', Status.todo);
     this.idMap.set('doing', Status.doing);
     this.idMap.set('done', Status.done);
@@ -46,7 +40,7 @@ export class SprintComponent implements OnDestroy {
         this.sprint = sprints.find((spr) => spr.id === params.sprint);
       });
 
-      this._userstories.getUserStoriesSprint$(params.project, params.sprint).subscribe((stories) => {
+      this._userStory.getUserStoriesSprint$(params.project, params.sprint).subscribe((stories) => {
         stories = stories.filter((story) => story.archived === false);
 
         this.doing = stories.filter((story) => story.status === Status.doing);
@@ -55,7 +49,7 @@ export class SprintComponent implements OnDestroy {
         this.allStories = stories;
 
 
-        this._userstories.getUserStories$(params.project).subscribe((userstories) => {
+        this._userStory.getUserStories$(params.project).subscribe((userstories) => {
 
           userstories = userstories.filter((story) => story.archived === false);
           this.backlog = userstories.filter((story) => !('inSprint' in story));
@@ -73,9 +67,10 @@ export class SprintComponent implements OnDestroy {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       this.reloadEmitter.emit();
     } else {
-      // const dataZooi:any = event.container.data[0];
+
       const status = this.idMap.get(event.container.id);
-      transferArrayItem(event.previousContainer.data,
+      transferArrayItem(
+        event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
@@ -83,9 +78,9 @@ export class SprintComponent implements OnDestroy {
       const item: any = event.container.data[event.currentIndex];
 
       if (event.previousContainer.id === 'backlog') {
-        await this._userstories.copyToSprint(this.projectId, this.sprintId, item.id, status);
+        await this._userStory.copyToSprint(this.projectId, this.sprintId, item.id, status);
       } else {
-        await this._userstories.setStatus(this.sprintId, this.projectId, item.id, status);
+        await this._userStory.setStatus(this.sprintId, this.projectId, item.id, status);
       }
 
       this.reloadEmitter.emit();

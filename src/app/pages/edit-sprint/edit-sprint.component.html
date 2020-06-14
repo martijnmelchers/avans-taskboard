@@ -1,4 +1,7 @@
-<mat-card>
+<a *ngIf="sprint" mat-icon-button color="accent" [routerLink]="['/projects', projectId, 'sprints', sprint.id]">
+  <mat-icon>arrow_back</mat-icon>
+</a>
+<mat-card  *ngIf="sprint">
   <mat-card-title>Update your sprint</mat-card-title>
   <mat-card-subtitle>Made a typo or want to change something? You can change it below!</mat-card-subtitle>
   <mat-card-content>

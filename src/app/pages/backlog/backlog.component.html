@@ -6,7 +6,7 @@
   <mat-card-subtitle>This is where you can add/remove user stories.</mat-card-subtitle>
 
   <mat-card-content>
-    <table mat-table [dataSource]="userStories" class="mat-elevation-z8" style="width: 100%;">
+    <table mat-table [dataSource]="userStories" style="width: 100%;">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>

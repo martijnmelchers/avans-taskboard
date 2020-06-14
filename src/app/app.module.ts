@@ -43,6 +43,7 @@ import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
 import {ChartsModule} from 'ng2-charts';
 import { MyLineChartComponent } from './components/my-line-chart/my-line-chart.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SprintCardComponent } from './sprint-card/sprint-card.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     EditProjectComponent,
     EditStoryComponent,
     EditSprintComponent,
-    MyLineChartComponent
+    MyLineChartComponent,
+    SprintCardComponent
   ],
   imports: [
     BrowserModule,
