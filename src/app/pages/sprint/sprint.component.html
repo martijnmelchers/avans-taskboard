@@ -1,5 +1,8 @@
+<a mat-icon-button color="accent" [routerLink]="['/projects', this.projectId]">
+  <mat-icon>arrow_back</mat-icon>
+</a>
 <mat-card>
-  <mat-card-title>Sprint overview</mat-card-title>
+  <mat-card-title>{{sprint?.name}} overview</mat-card-title>
   <mat-card-content>
     <div cdkDropListGroup>
 
@@ -67,5 +70,13 @@
       </div>
 
     </div>
+
+    <div *ngIf="sprint">
+      <app-burndown [sprint]="sprint" [projectId]="projectId"></app-burndown>
+    </div>
   </mat-card-content>
+
+  <mat-card-actions align="right">
+    <button mat-raised-button color="accent" [routerLink]="['/projects', projectId, 'sprints', sprintId,'edit']">Edit sprint</button>
+  </mat-card-actions>
 </mat-card>

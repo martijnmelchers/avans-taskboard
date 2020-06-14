@@ -4,7 +4,7 @@
   <mat-card-content>
     <div>
 
-      <form action="" style="width: 100%" [formGroup]="addSprintForm" (submit)="createSprint(addSprintForm.value)">
+      <form action="" style="width: 100%" [formGroup]="editSprintForm" (submit)="editSprint(editSprintForm.value)">
         <mat-form-field class="full-width">
           <mat-label>Sprint name</mat-label>
           <input matInput type="text" name="name" formControlName="name">
@@ -24,7 +24,7 @@
         </mat-form-field>
         <br>
 
-        <button [disabled]="!addSprintForm.valid" mat-raised-button color="primary" type="submit">
+        <button [disabled]="!editSprintForm.valid" mat-raised-button color="primary" type="submit">
           Update
         </button>
 

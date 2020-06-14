@@ -40,6 +40,8 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { EditProjectComponent } from './pages/edit-project/edit-project.component';
 import { EditStoryComponent } from './pages/edit-story/edit-story.component';
 import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
+import {ChartsModule} from 'ng2-charts';
+import { MyLineChartComponent } from './components/my-line-chart/my-line-chart.component';
 
 
 @NgModule({
@@ -58,7 +60,8 @@ import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
     DialogAddSprintComponent,
     EditProjectComponent,
     EditStoryComponent,
-    EditSprintComponent
+    EditSprintComponent,
+    MyLineChartComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,8 @@ import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
     MatListModule,
     MatIconModule,
     DragDropModule,
-    MatRippleModule
+    MatRippleModule,
+    ChartsModule
   ],
   entryComponents: [
     DialogAddUserComponent

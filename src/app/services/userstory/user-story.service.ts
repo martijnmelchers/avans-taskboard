@@ -23,6 +23,7 @@ export class UserStoryService {
     const projectStory = this._firestore.col<Project>('projects').doc<Project>(projectId).collection<Userstory>('userstories').doc<Userstory>(userstoryId);
     const story = await projectStory.get().toPromise();
     const data = story.data();
+    data.updated = new Date();
     const storyId = story.id;
     delete data.id;
     data.status = status;
@@ -33,7 +34,7 @@ export class UserStoryService {
   }
 
   public setStatus(sprintId: string, projectId: string, userstoryId: string, status: Status) {
-    return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(userstoryId).update({ status: status });
+    return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(userstoryId).update({ status: status, updated: new Date() });
   }
 
   public createUserStory(project: Project, data: any) {
@@ -42,7 +43,8 @@ export class UserStoryService {
       description: data.description,
       status: Status.created,
       storyPoints: data.storyPoints,
-      archived: false
+      archived: false,
+      updated: new Date()
     };
 
     if (data.owner) {

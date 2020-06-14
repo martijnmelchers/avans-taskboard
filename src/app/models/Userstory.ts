@@ -9,4 +9,5 @@ export class Userstory {
   storyPoints: number;
   inSprint?: DocumentReference;
   archived?: boolean;
+  updated?: any;
 }
