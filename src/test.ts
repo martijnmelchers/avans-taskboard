@@ -6,6 +6,8 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+import {providers} from './app/app.providers';
+import {imports} from './app/app.imports';
 
 declare const require: {
   context(path: string, deep?: boolean, filter?: RegExp): {
@@ -14,11 +16,14 @@ declare const require: {
   };
 };
 
+const modules: any[] =  imports;
+modules.push(BrowserDynamicTestingModule);
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
+  modules,
   platformBrowserDynamicTesting()
 );
+
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.

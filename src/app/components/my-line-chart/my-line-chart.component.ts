@@ -37,7 +37,7 @@ export class MyLineChartComponent implements OnInit {
   async ngOnInit() {
     await this.generateBurndown();
   }
-  
+
   async generateBurndown(){
     const daysOfYear = [];
     for (const d = this.sprint.startDate.toDate(); d <= this.sprint.endDate.toDate(); d.setDate(d.getDate() + 1)) {
