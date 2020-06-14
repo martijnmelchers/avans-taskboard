@@ -3,7 +3,7 @@
   <mat-card-title>{{item.name}}</mat-card-title>
   <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
   <mat-card-content>
-    <p>Assigned to: {{(item.owner | doc | async)?.email}}</p>
+    <p *ngIf="item.owner">Assigned to: {{(item?.owner | doc | async)?.email}}</p>
     <p>Points: {{(item.storyPoints != undefined) ? item.storyPoints : 'No points'}}</p>
   </mat-card-content>
 </mat-card>

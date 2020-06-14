@@ -21,7 +21,8 @@ export class SprintService {
     const sprint: Sprint = {
       name: data.name,
       startDate: data.startDate,
-      endDate: data.endDate
+      endDate: data.endDate,
+      description: data.description
     };
     return this._firestore.col(`/projects/${project.id}/sprints`).add(data);
   }

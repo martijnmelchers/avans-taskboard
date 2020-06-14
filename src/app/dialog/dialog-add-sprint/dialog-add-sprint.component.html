@@ -8,6 +8,11 @@
     </mat-form-field>
     <br>
     <mat-form-field class="full-width">
+      <mat-label>Sprint Description</mat-label>
+      <textarea matInput type="text" name="description" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
       <mat-label>Choose an start date</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="startDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -18,6 +23,9 @@
       <input matInput [matDatepicker]="picker1" formControlName="endDate">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
+      <mat-error *ngIf="addSprintForm.errors?.before !== null">
+        end date must be after start date.
+      </mat-error>
     </mat-form-field>
     <br>
 

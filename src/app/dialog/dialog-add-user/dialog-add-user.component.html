@@ -12,13 +12,13 @@
 
       <ng-container matColumnDef="role">
         <th mat-header-cell *matHeaderCellDef> Role</th>
-        <td mat-cell *matCellDef="let element"> {{project.owner === element.uid ? 'Owner' : 'Member'}} </td>
+        <td mat-cell *matCellDef="let element"> {{project.owner.id === element.id ? 'Owner' : 'Member'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="remove">
         <th mat-header-cell *matHeaderCellDef> Options</th>
         <td mat-cell *matCellDef="let element">
-          <button *ngIf="auth.getUser().uid !== element.uid" (click)="removeUser(element)" mat-icon-button
+          <button *ngIf="auth.getUser().uid !== element.id && project.owner.id !== element.id" (click)="removeUser(element)" mat-icon-button
                   color="warn">
             <mat-icon>delete</mat-icon>
           </button>
@@ -37,7 +37,7 @@
     <br>
   </div>
   <div mat-dialog-actions>
-    <button type="submit" [disabled]="addUserForm.valid" mat-raised-button color="primary">Add user</button>
+    <button type="submit" [disabled]="!addUserForm.valid" mat-raised-button color="primary">Add user</button>
     <button mat-button (click)="close()">Close</button>
   </div>
 </form>

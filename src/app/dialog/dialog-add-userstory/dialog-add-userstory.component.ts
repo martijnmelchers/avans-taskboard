@@ -4,7 +4,7 @@ import {Project} from '../../models/Project';
 import {ProjectService} from '../../services/project/project.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../../services/auth/auth.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {DialogAddUserComponent} from '../dialog-add-user/dialog-add-user.component';
 import {ScrumUser} from '../../models/ScrumUser';
 import {UserStoryService} from '../../services/userstory/user-story.service';
@@ -26,7 +26,7 @@ export class DialogAddUserStoryComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     storyPoints: new FormControl('', [Validators.required, Validators.min(1)]),
-    owner: new FormControl('', [Validators.required]),
+    owner: new FormControl('', []),
   });
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserStoryComponent>,
@@ -43,7 +43,6 @@ export class DialogAddUserStoryComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
-
 
   async createUserstory(data: FormData){
     try{

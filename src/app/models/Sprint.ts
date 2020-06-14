@@ -6,4 +6,5 @@ export class Sprint {
   endDate: any;
   id?: string;
   userstories?: Array<Userstory>;
+  description?: string;
 }

@@ -24,7 +24,7 @@ export class DialogAddUserComponent implements OnInit {
   project: Project;
   displayedColumns: string[] = ['email', 'role', 'remove'];
   addUserForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required]),
   });
   members: Observable<ScrumUser[]>;
 
