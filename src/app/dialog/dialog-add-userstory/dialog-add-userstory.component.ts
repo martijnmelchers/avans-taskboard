@@ -25,6 +25,7 @@ export class DialogAddUserStoryComponent implements OnInit {
   public addUserStoryForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
+    storyPoints: new FormControl('', [Validators.required, Validators.min(1)]),
     owner: new FormControl('', [Validators.required]),
   });
   constructor(

@@ -27,15 +27,17 @@ export class EditSprintComponent implements OnInit {
       this._sprint.getSprints(params.project).subscribe(sprints => {
         const sprint = sprints.find(x => x.id == params.sprint);
 
-        console.log(sprint);
-
         this.addSprintForm.get('name').setValue(sprint.name);
         this.addSprintForm.get('startDate').setValue(sprint.startDate.toDate());
         this.addSprintForm.get('endDate').setValue(sprint.endDate.toDate());
-      })
+      });
     });
   }
 
+
+  createSprint(data: any): void {
+
+  }
   ngOnInit(): void {
   }
 

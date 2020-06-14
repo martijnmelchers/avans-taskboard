@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 export class EditStoryComponent implements OnInit {
   project: Project;
   members: ScrumUser[];
-  public addUserStoryForm: FormGroup = new FormGroup({
+  public editUserStoryForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     owner: new FormControl('', [Validators.required])
@@ -32,14 +32,10 @@ export class EditStoryComponent implements OnInit {
         const userStorySub = this._userStories.getUserStories$(this.project.id).subscribe((userstories) => {
           const story = userstories.find(x => x.id === params.backlog);
 
-          this.addUserStoryForm.get('name').setValue(story.name);
-          this.addUserStoryForm.get('description').setValue(story.description);
-          this.addUserStoryForm.get('owner').setValue(story.owner);
-
+          this.editUserStoryForm.get('name').setValue(story.name);
+          this.editUserStoryForm.get('description').setValue(story.description);
+          this.editUserStoryForm.get('owner').setValue(story.owner);
         });
-
-
-
       });
     });
   }
@@ -48,7 +44,7 @@ export class EditStoryComponent implements OnInit {
   }
 
 
-  async createUserstory(data: FormData) {
+  async editUserStory(data: FormData) {
     try {
       await this._userStory.createUserStory(this.project, data);
       this._snackbar.open('Successfully created user story.');
