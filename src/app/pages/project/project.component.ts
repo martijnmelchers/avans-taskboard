@@ -30,7 +30,6 @@ export class ProjectComponent implements OnDestroy, OnInit {
 
 
       this.sprintSubscription = this._sprints.getSprints(params.project).subscribe((sprints) => {
-        console.log(sprints);
         this.sprints = sprints;
       });
     });

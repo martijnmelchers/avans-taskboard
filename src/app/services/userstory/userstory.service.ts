@@ -32,7 +32,6 @@ export class UserstoryService {
 
     data.status = status;
 
-    console.log(data);
     return this._firestore.col(`projects/${projectId}/sprints/${sprintId}/userstories`).doc(storyId).set(data);
   }
 

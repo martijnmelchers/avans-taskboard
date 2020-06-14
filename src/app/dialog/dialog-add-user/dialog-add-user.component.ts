@@ -58,19 +58,16 @@ export class DialogAddUserComponent implements OnInit {
       this._snackbar.open('User removed successfully', 'Close');
     }
     catch(e){
-      console.log(e);
       this._snackbar.open('Could not remove user', 'Close');
     }
   }
 
   async addUser(data: any){
     try{
-      console.log(data);
       await this._project.addProjectUser(this.project.id, data);
       this._snackbar.open('User added successfully', 'Close');
     }
     catch (e) {
-      console.error(e);
       this._snackbar.open('Error while adding user check if the user exists', 'Close');
     }
   }

@@ -78,8 +78,6 @@ export class SprintComponent implements OnDestroy {
 
       const item:any = event.container.data[event.currentIndex];
       //This is the backlog item.
-
-      console.log(event.container);
       if(event.previousContainer.id === 'backlog'){
         await this._userstories.copyToSprint(this.projectId, this.sprintId, item.id, status);
       }
