@@ -1,4 +1,3 @@
-
 <mat-card fxFlex.xl="33vw">
   <mat-card-title>Login</mat-card-title>
   <mat-card-subtitle>Login with your e-mail & password</mat-card-subtitle>
@@ -24,4 +23,9 @@
       <button [disabled]="!loginForm.valid" mat-raised-button mat-button color="primary" mat-button>Login</button>
     </form>
   </mat-card-content>
+  <mat-card-footer  style="text-align: center">
+    <a routerLink="/register" mat-flat-button>Don't have an account yet?</a>
+    <br>
+    <br>
+  </mat-card-footer>
 </mat-card>

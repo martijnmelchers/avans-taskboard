@@ -15,6 +15,7 @@ import { MemberGuard } from './guards/member.guard';
 
 
 const routes: Routes = [
+  { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
