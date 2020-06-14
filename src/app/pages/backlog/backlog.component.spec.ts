@@ -4,7 +4,7 @@ import { BacklogComponent } from './backlog.component';
 import {UserStoryService} from '../../services/userstory/user-story.service';
 import {FakeUserStory} from '../../mocks/userstory.fake';
 import {ProjectService} from '../../services/project/project.service';
-import {FakeProject} from '../../mocks/projectfake';
+import {FakeProject} from '../../mocks/project.fake';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {By} from '@angular/platform-browser';

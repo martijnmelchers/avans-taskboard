@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditProjectComponent } from './edit-project.component';
 import {ProjectService} from '../../services/project/project.service';
-import {FakeProject} from '../../mocks/projectfake';
+import {FakeProject} from '../../mocks/project.fake';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 
