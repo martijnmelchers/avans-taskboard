@@ -13,6 +13,12 @@
           <input matInput type="text" name="name" formControlName="name">
         </mat-form-field>
         <br>
+
+        <mat-form-field class="full-width">
+          <mat-label>Sprint Description</mat-label>
+          <textarea matInput type="text" name="description" formControlName="description"></textarea>
+        </mat-form-field>
+        
         <mat-form-field class="full-width">
           <mat-label>Choose an start date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="startDate">

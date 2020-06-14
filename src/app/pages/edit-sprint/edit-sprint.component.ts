@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../../models/Project';
 import { ScrumUser } from '../../models/ScrumUser';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProjectService } from '../../services/project/project.service';
@@ -17,12 +17,7 @@ import { Sprint } from '../../models/Sprint';
 export class EditSprintComponent implements OnInit {
   sprint: Sprint;
   projectId: string;
-  public editSprintForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    startDate: new FormControl('', [Validators.required]),
-    endDate: new FormControl('', [Validators.required])
-  });
-
+  public editSprintForm: FormGroup;
   constructor(
     private _snackbar: MatSnackBar,
     private _dialog: MatDialog,
@@ -30,7 +25,15 @@ export class EditSprintComponent implements OnInit {
     private _sprints: SprintService,
     private _route: ActivatedRoute,
     private _snack: MatSnackBar,
-    private _router: Router) {
+    private _router: Router, private fb: FormBuilder) {
+
+    this.editSprintForm = this.fb.group({
+      name:[null,[Validators.required]],
+      startDate: [null, [Validators.required]],
+      endDate: [null, [Validators.required]],
+      description: [null, []]
+    }, {validators: this.endDateValidator});
+
     this._route.params.subscribe((params) => {
       this.projectId = params.project;
       this._sprints.getSprints(params.project).subscribe(sprints => {
@@ -54,7 +57,14 @@ export class EditSprintComponent implements OnInit {
       this._snack.open(`Failed updating sprint.`, 'Close', { duration: 2000 });
     }
   }
-
+  private endDateValidator: ValidatorFn = (group: FormGroup): ValidationErrors | null => { // here we have the 'passwords' group
+    const endDate = group.get('endDate').value;
+    const startDate = group.get('startDate').value;
+    if (!endDate || !startDate){
+      return null;
+    }
+    return (endDate <= startDate)  ? { before: true } : null;
+  }
   ngOnInit(): void {
 
   }

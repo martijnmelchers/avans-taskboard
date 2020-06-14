@@ -3,6 +3,7 @@
 </a>
 <mat-card>
   <mat-card-title>{{sprint?.name}} overview</mat-card-title>
+  <mat-card-subtitle>{{sprint?.description}}</mat-card-subtitle>
   <mat-card-content>
     <button mat-stroked-button (click)="showGraph = !showGraph">
       Toggle burndown
