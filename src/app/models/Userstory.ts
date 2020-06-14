@@ -8,4 +8,5 @@ export class Userstory {
   owner?: DocumentReference;
   storyPoints: number;
   inSprint?: DocumentReference;
+  archived?: boolean;
 }

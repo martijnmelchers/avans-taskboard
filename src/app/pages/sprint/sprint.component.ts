@@ -47,6 +47,8 @@ export class SprintComponent implements OnDestroy {
       });
 
       this._userstories.getUserStoriesSprint$(params.project, params.sprint).subscribe((stories) => {
+        stories = stories.filter((story) => story.archived === false);
+
         this.doing = stories.filter((story) => story.status === Status.doing);
         this.todo = stories.filter((story) => story.status === Status.todo);
         this.done = stories.filter((story) => story.status === Status.done);
@@ -54,6 +56,8 @@ export class SprintComponent implements OnDestroy {
 
 
         this._userstories.getUserStories$(params.project).subscribe((userstories) => {
+
+          userstories = userstories.filter((story) => story.archived === false);
           this.backlog = userstories.filter((story) =>  !('inSprint' in story));
         });
       });

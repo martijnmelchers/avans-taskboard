@@ -32,4 +32,9 @@
       </form>
     </div>
   </mat-card-content>
+
+  <mat-card-actions align="right">
+    <button *ngIf="!story.archived" mat-raised-button color="warn" (click)="archiveStory()">Archive story</button>
+    <button *ngIf="story.archived" mat-raised-button color="primary" (click)="archiveStory(false)">de-archive story</button>
+  </mat-card-actions>
 </mat-card>

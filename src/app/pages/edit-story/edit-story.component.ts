@@ -51,9 +51,20 @@ export class EditStoryComponent implements OnInit {
   async editUserStory(data: FormData) {
     try {
       await this._userStory.editUserStory(this.project.id, this.story, data);
-      this._snackbar.open('Successfully created user story.');
+      this._snackbar.open('Successfully updated user story.', 'Close');
     } catch (e) {
-      this._snackbar.open('Failed creating user story');
+      this._snackbar.open('Failed updating user story','Close');
+    }
+  }
+
+  async archiveStory(archive: boolean = true) {
+    try{
+      await this._userStories.archiveUserStory(this.project.id, this.story, archive);
+      this._snackbar.open('Successfully archived user story.', 'Close');
+    }
+    catch (e) {
+      console.error(e);
+      this._snackbar.open('Failed archiving user story.', 'Close');
     }
   }
 }
