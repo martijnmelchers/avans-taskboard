@@ -41,7 +41,7 @@
             {{element.status}}
           </div>
 
-          <div *ngIf="element.archived">
+          <div *ngIf="element.archived" id="archived-story">
             <button (click)="deArchive($event, element)" mat-icon-button>
               <mat-icon>unarchive</mat-icon>
             </button>
@@ -50,7 +50,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openStory(row.id)"></tr>
+      <tr class="user-story" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openStory(row.id)"></tr>
     </table>
     <hr>
     <button mat-raised-button color="primary" (click)="openDialog()">Create new user story</button>

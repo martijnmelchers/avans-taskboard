@@ -48,13 +48,12 @@ describe('CreateProjectComponent', () => {
   });
 
   it('should call the createProject function', () => {
-    spyOn(fixture.componentInstance, 'createProject');
     component.projectForm.controls.name.setValue('Test project name');
     component.projectForm.controls.description.setValue('Test description');
     component.projectForm.updateValueAndValidity();
     const el = fixture.debugElement.query(By.css('#createProjectButton')).nativeElement;
     el.click();
     fixture.detectChanges();
-    expect(fixture.componentInstance.createProject).toHaveBeenCalled();
+    expect(component.createProject).toHaveBeenCalled();
   });
 });
