@@ -110,5 +110,14 @@ export class ProjectService {
     const sprintRef = this._firestore.doc(`projects/${projectId}/sprints/${sprintId}`).ref;
     return this._firestore.col<Project>('projects').doc(projectId).update({ activeSprint: sprintRef });
   }
+
+  async isInProject(project: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.projects$.subscribe(x => {
+        resolve(x.find(x => x.id == project) != null)
+      });
+    });
+  }
 }
+
 

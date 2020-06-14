@@ -58,7 +58,8 @@ export class ProjectComponent implements OnDestroy, OnInit {
   openUserDialog(): void {
     const dialogRef = this._dialog.open(DialogAddUserComponent, {
       width: '33%',
-      data: { project: this.project }
+      data: { project: this.project },
+      hasBackdrop: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -10,19 +10,21 @@ import { SprintComponent } from './pages/sprint/sprint.component';
 import { EditProjectComponent } from './pages/edit-project/edit-project.component';
 import { EditStoryComponent } from './pages/edit-story/edit-story.component';
 import { EditSprintComponent } from './pages/edit-sprint/edit-sprint.component';
+import { AuthGuard } from './guards/auth.guard';
+import { MemberGuard } from './guards/member.guard';
 
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'projects', component: ProjectsComponent },
-  { path: 'create-project', component: CreateProjectComponent },
-  { path: 'projects/:project', component: ProjectComponent },
-  { path: 'edit-project/:project', component: EditProjectComponent },
-  { path: 'projects/:project/backlog', component: BacklogComponent },
-  { path: 'projects/:project/backlog/:backlog', component: EditStoryComponent },
-  { path: 'projects/:project/sprints/:sprint', component: SprintComponent },
-  { path: 'projects/:project/sprints/:sprint/edit', component: EditSprintComponent }
+  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+  { path: 'create-project', component: CreateProjectComponent, canActivate: [AuthGuard] },
+  { path: 'projects/:project', component: ProjectComponent, canActivate: [AuthGuard, MemberGuard] },
+  { path: 'edit-project/:project', component: EditProjectComponent, canActivate: [AuthGuard, MemberGuard] },
+  { path: 'projects/:project/backlog', component: BacklogComponent, canActivate: [AuthGuard, MemberGuard] },
+  { path: 'projects/:project/backlog/:backlog', component: EditStoryComponent, canActivate: [AuthGuard, MemberGuard] },
+  { path: 'projects/:project/sprints/:sprint', component: SprintComponent, canActivate: [AuthGuard, MemberGuard] },
+  { path: 'projects/:project/sprints/:sprint/edit', component: EditSprintComponent, canActivate: [AuthGuard, MemberGuard] }
 ];
 
 @NgModule({
