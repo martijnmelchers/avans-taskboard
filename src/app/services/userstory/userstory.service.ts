@@ -45,6 +45,7 @@ export class UserstoryService {
       name: data.name,
       description: data.description,
       status: Status.created,
+      storyPoints: data.storyPoints
     };
 
     if(data.owner){
@@ -54,5 +55,9 @@ export class UserstoryService {
 
     return this._firestore.col<Project>('projects')
       .doc<Project>(project.id).collection<Userstory>('userstories').add(userStory);
+  }
+
+  public editUserStory(project: string, data:any){
+
   }
 }

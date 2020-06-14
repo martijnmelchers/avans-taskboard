@@ -17,7 +17,7 @@ export class BacklogComponent implements OnDestroy {
   project: Project;
   userStories: Userstory[];
   subscriptions: Subscription[] = [];
-  displayedColumns: string[] = ['name', 'description', 'owner', 'status'];
+  displayedColumns: string[] = ['name', 'description','storyPoints', 'owner', 'status'];
 
   constructor(private _route: ActivatedRoute, private _project: ProjectService, private _userStories: UserstoryService, private _dialog: MatDialog, private _router: Router) {
       this.subscriptions.push(_route.params.subscribe((params) => {

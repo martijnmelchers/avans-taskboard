@@ -6,4 +6,5 @@ export class Userstory {
   description: string;
   status: string;
   owner?: DocumentReference;
+  storyPoints: number;
 }
